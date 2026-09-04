@@ -1,0 +1,4 @@
+round,candidate_client_pair_state_pair_count,stable_comparable_count,stable_reversal_count,stable_comparable_rate,stable_reversal_rate_all_candidates,stable_reversal_rate_among_stable_comparable
+1,2025,111,0,0.054814814814814816,0.0,0.0
+20,2025,253,21,0.12493827160493827,0.01037037037037037,0.08300395256916997
+40,2025,386,0,0.19061728395061728,0.0,0.0

@@ -1,0 +1,61 @@
+{
+  "analysis": "Phase 4.1 offline client-state interaction",
+  "source_protocol": "P2_64_32",
+  "source_archives": [
+    {
+      "path": "results\\fedrad_phase36\\probe_size_seed1\\raw\\P2_64_32_round_0001_rep_0.npz",
+      "sha256": "6cdc194ac80656582dd1c39ced4908cd7659120b343ff4938f75326ea607886a"
+    },
+    {
+      "path": "results\\fedrad_phase36\\probe_size_seed1\\raw\\P2_64_32_round_0001_rep_1.npz",
+      "sha256": "3632b0f140225ef6fe14210c292af37bb3ac4b1a979e731dce16f45d63b7ad3f"
+    },
+    {
+      "path": "results\\fedrad_phase36\\probe_size_seed1\\raw\\P2_64_32_round_0001_rep_2.npz",
+      "sha256": "2ce1aba47451903a8fbc5ee78c091817d0bbbafc4436b7ce8c8c3625d68633c9"
+    },
+    {
+      "path": "results\\fedrad_phase36\\probe_size_seed1\\raw\\P2_64_32_round_0020_rep_0.npz",
+      "sha256": "6501edbb715b6d1ed4e63d5a0bd39815e54c02fec913b14458af13a9edc95920"
+    },
+    {
+      "path": "results\\fedrad_phase36\\probe_size_seed1\\raw\\P2_64_32_round_0020_rep_1.npz",
+      "sha256": "545196a7a7908e29d4fec3abacb9a79275cae7c5764b528ccaefe57bfb2cd182"
+    },
+    {
+      "path": "results\\fedrad_phase36\\probe_size_seed1\\raw\\P2_64_32_round_0020_rep_2.npz",
+      "sha256": "75c8525fa7b0ca6bac3a6a280bf02e5adca2d2e0c12394236d89ca24e2c777bd"
+    },
+    {
+      "path": "results\\fedrad_phase36\\probe_size_seed1\\raw\\P2_64_32_round_0040_rep_0.npz",
+      "sha256": "a4c86b8bdf44094c51a0becfd235dbe02ecda362a6784fc7b1f1d73b4b9fb1a8"
+    },
+    {
+      "path": "results\\fedrad_phase36\\probe_size_seed1\\raw\\P2_64_32_round_0040_rep_1.npz",
+      "sha256": "03f46505baf69742929e5b55b529385de4cd6251a458709a94473fa370828e47"
+    },
+    {
+      "path": "results\\fedrad_phase36\\probe_size_seed1\\raw\\P2_64_32_round_0040_rep_2.npz",
+      "sha256": "5a9d5726bab409f18ab79e033c2d589db613c6f7943e3024b01791eb5bdbf27b"
+    }
+  ],
+  "rounds": [
+    1,
+    20,
+    40
+  ],
+  "replicates_per_round": [
+    0,
+    1,
+    2
+  ],
+  "primary_quantity": "G = reset_loss - adapted_loss",
+  "secondary_quantities": [
+    "A",
+    "D",
+    "C",
+    "adapted_utility",
+    "Q"
+  ],
+  "new_training_or_forward_passes": false
+}
