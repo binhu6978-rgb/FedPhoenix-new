@@ -1,0 +1,10 @@
+{
+  "status": "complete",
+  "rounds": 200,
+  "initial_state_hash": "8dd47e9ea579a76bc97c5826572ec9c984931f0d9c41705131ec5e3add566ce7",
+  "final_state_hash": "1ed3b9aad3e05f698c2a9d2daa4b06069434ca36e3f6f7672194d7226ad00259",
+  "partition_fingerprint": "f8fcaa0f17c5d2078c5d24ece11b3f8cfcb82553733fb972155b7452d87a8fd0",
+  "final_diagnostic_accuracy": 71.49,
+  "final_diagnostic_loss": 0.8347395823478698,
+  "no_probe_score_matching_or_gate": true
+}

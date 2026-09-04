@@ -1,0 +1,36 @@
+{
+  "source_run": "C:\\Users\\admin\\Desktop\\need_do\\new_paper_four\\FedPhoenix-new\\results\\fedrad_phase3\\fedrad_seed1_20260903_103259_902525_fedrad_40r_diagnostic",
+  "rounds": [
+    1,
+    20,
+    40
+  ],
+  "protocols": {
+    "P0_32_32": [
+      32,
+      32
+    ],
+    "P1_32_64": [
+      32,
+      64
+    ],
+    "P2_64_32": [
+      64,
+      32
+    ],
+    "P3_64_64": [
+      64,
+      64
+    ]
+  },
+  "replicates": 3,
+  "device": "cuda:0",
+  "partition_fingerprint": "f8fcaa0f17c5d2078c5d24ece11b3f8cfcb82553733fb972155b7452d87a8fd0",
+  "nested_rule": "one deterministic client/round/replicate permutation; support is prefix[0:32/64], query is disjoint prefix[64:96/128]",
+  "probe_steps": 1,
+  "probe_learning_rate": 0.01,
+  "probe_optimizer": "plain SGD, momentum=0, weight_decay=0",
+  "batch_norm_mode": "eval",
+  "uses_test_accuracy": false,
+  "formal_training_performed": false
+}

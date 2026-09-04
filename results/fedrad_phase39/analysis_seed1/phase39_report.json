@@ -1,0 +1,94 @@
+{
+  "protocol": {
+    "phase": "3.9",
+    "seed": 1,
+    "rounds": 200,
+    "primary_metric": "peak full accuracy",
+    "runs_concurrent": true
+  },
+  "run_directories": {
+    "Clean": "C:\\Users\\admin\\Desktop\\need_do\\new_paper_four\\FedPhoenix-new\\results\\fedrad_phase38\\clean_fedphoenix_seed1_20260903_202836_392982_clean_200r_controlled",
+    "Full-All": "C:\\Users\\admin\\Desktop\\need_do\\new_paper_four\\FedPhoenix-new\\results\\fedrad_phase38\\fedrad_seed1_20260903_214802_588198_fedrad64_32_200r_controlled",
+    "Full-Warm40": "C:\\Users\\admin\\Desktop\\need_do\\new_paper_four\\FedPhoenix-new\\results\\fedrad_phase39\\fedrad_seed1_20260904_102657_894571_full_warm40_200r_controlled",
+    "Full-Warm80": "C:\\Users\\admin\\Desktop\\need_do\\new_paper_four\\FedPhoenix-new\\results\\fedrad_phase39\\fedrad_seed1_20260904_102658_109571_full_warm80_200r_controlled",
+    "G-Warm40": "C:\\Users\\admin\\Desktop\\need_do\\new_paper_four\\FedPhoenix-new\\results\\fedrad_phase39\\fedrad_seed1_20260904_102657_935571_g_warm40_200r_controlled"
+  },
+  "metrics": {
+    "Clean": {
+      "peak": 73.81,
+      "peak_round": 175,
+      "final": 71.49,
+      "last20": 68.28150000000001,
+      "last50": 67.57459999999999,
+      "runtime_seconds": 4107.057076454163
+    },
+    "Full-All": {
+      "peak": 74.44,
+      "peak_round": 175,
+      "final": 71.65,
+      "last20": 68.6705,
+      "last50": 67.8056,
+      "runtime_seconds": 5646.943283081055
+    },
+    "Full-Warm40": {
+      "peak": 74.53,
+      "peak_round": 175,
+      "final": 72.04,
+      "last20": 67.6695,
+      "last50": 67.4692,
+      "runtime_seconds": 7545.342713832855
+    },
+    "Full-Warm80": {
+      "peak": 73.95,
+      "peak_round": 164,
+      "final": 71.9,
+      "last20": 68.793,
+      "last50": 67.6712,
+      "runtime_seconds": 6905.043269872665
+    },
+    "G-Warm40": {
+      "peak": 74.48,
+      "peak_round": 175,
+      "final": 72.89,
+      "last20": 67.97850000000001,
+      "last50": 67.4152,
+      "runtime_seconds": 7556.654720544815
+    }
+  },
+  "warmup_validation": {
+    "Full-Warm40": {
+      "validated": true,
+      "warmup_rounds": 40,
+      "global_hashes_equal_to_clean": 40,
+      "probe_skipped_during_warmup": true,
+      "matching_rounds": 160,
+      "post_start_fedrad_greater_ratio": 0.50625,
+      "post_start_mean_delta": -0.10743749999999937,
+      "post_start_delta_last20": -0.6119999999999969
+    },
+    "Full-Warm80": {
+      "validated": true,
+      "warmup_rounds": 80,
+      "global_hashes_equal_to_clean": 80,
+      "probe_skipped_during_warmup": true,
+      "matching_rounds": 120,
+      "post_start_fedrad_greater_ratio": 0.4,
+      "post_start_mean_delta": -0.1426666666666667,
+      "post_start_delta_last20": 0.511500000000001
+    },
+    "G-Warm40": {
+      "validated": true,
+      "warmup_rounds": 40,
+      "global_hashes_equal_to_clean": 40,
+      "probe_skipped_during_warmup": true,
+      "matching_rounds": 160,
+      "post_start_fedrad_greater_ratio": 0.40625,
+      "post_start_mean_delta": -0.09143749999999976,
+      "post_start_delta_last20": -0.3029999999999983
+    }
+  },
+  "best_variant": "Full-Warm40",
+  "peak_improvement_over_clean": 0.7199999999999989,
+  "peak_improvement_over_full_all": 0.09000000000000341,
+  "g_only_decision": "G-only direction stops: G-Warm40 did not exceed the best Full timing variant."
+}

@@ -1,0 +1,34 @@
+{
+  "python": {
+    "executable": "D:\\software\\minicoonda\\envs\\fd\\python.exe",
+    "version": "3.12.0 | packaged by conda-forge | (main, Oct  3 2023, 08:26:13) [MSC v.1935 64 bit (AMD64)]",
+    "prefix": "D:\\software\\minicoonda\\envs\\fd",
+    "base_prefix": "D:\\software\\minicoonda\\envs\\fd"
+  },
+  "torch": {
+    "version": "2.7.1+cu128",
+    "file": "D:\\software\\minicoonda\\envs\\fd\\Lib\\site-packages\\torch\\__init__.py"
+  },
+  "torchvision": {
+    "version": "0.22.1+cu128",
+    "file": "D:\\software\\minicoonda\\envs\\fd\\Lib\\site-packages\\torchvision\\__init__.py"
+  },
+  "numpy": {
+    "version": "2.5.2",
+    "file": "D:\\software\\minicoonda\\envs\\fd\\Lib\\site-packages\\numpy\\__init__.py"
+  },
+  "scipy": {
+    "version": "1.18.0",
+    "file": "D:\\software\\minicoonda\\envs\\fd\\Lib\\site-packages\\scipy\\__init__.py"
+  },
+  "cuda": {
+    "available": true,
+    "torch_runtime": "12.8",
+    "cudnn": 90701,
+    "gpu_name": "NVIDIA GeForce RTX 4080 SUPER",
+    "gpu_capability": [
+      8,
+      9
+    ]
+  }
+}
