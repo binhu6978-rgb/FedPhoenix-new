@@ -143,8 +143,8 @@ class FedRADConfig:
             raise ValueError("gate_tau must be positive and conservative")
         if not 1 <= self.matching_start_round <= self.rounds + 1:
             raise ValueError("matching_start_round must lie in [1, rounds + 1]")
-        if self.score_mode not in {"full", "g_only"}:
-            raise ValueError("score_mode must be full or g_only")
+        if self.score_mode not in {"full", "g_only", "functional"}:
+            raise ValueError("score_mode must be full, g_only, or functional")
         if self.matching_start_round > 1:
             if self.warmup_reference_rounds_path is None:
                 raise ValueError(

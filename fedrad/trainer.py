@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+from dataclasses import replace
 import json
 import time
 from typing import Sequence
@@ -10,7 +11,7 @@ import torch
 from torch import nn
 
 from fedrad.aggregation import weighted_fedavg
-from fedrad.assignment import assign_with_gate
+from fedrad.assignment import assign_functional_recovery, assign_with_gate
 from fedrad.config import FedRADConfig
 from fedrad.data import FederatedData
 from fedrad.evaluation import Evaluator
@@ -529,13 +530,23 @@ class FedRADTrainer:
                 results=probe_results,
                 config=self.config,
             )
-            decision = assign_with_gate(
-                scores,
-                gate_tau=self.config.gate_tau,
-                development_force_hungarian=(
-                    self.config.development_force_hungarian
-                ),
-            )
+            if self.config.score_mode == "functional":
+                scores = replace(scores, Q=scores.G)
+                # Formal Ours: Q is exactly the raw held-out functional recovery
+                # G = reset-query loss minus post-one-step-adaptation query loss.
+                decision = assign_functional_recovery(
+                    client_order=tuple(selected_clients),
+                    task_order=tuple(task.task_id for task in bank.tasks),
+                    Q=scores.G,
+                )
+            else:
+                decision = assign_with_gate(
+                    scores,
+                    gate_tau=self.config.gate_tau,
+                    development_force_hungarian=(
+                        self.config.development_force_hungarian
+                    ),
+                )
             matching_seconds = time.perf_counter() - matching_start
             self.logger.log_scores(round_idx, scores)
             self.logger.log_assignment(round_idx, decision)

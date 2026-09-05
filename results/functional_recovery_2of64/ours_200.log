@@ -1,0 +1,7 @@
+Run directory: C:\Users\admin\Desktop\need_do\new_paper_four\FedPhoenix-new\results\functional_recovery_2of64\functional_recovery_seed1_20260905_205242_692908_ours_seed1_2of64_200r_functional_recovery
+Partition fingerprint: f8fcaa0f17c5d2078c5d24ece11b3f8cfcb82553733fb972155b7452d87a8fd0; device=cuda:0
+ROUND fedrad round=1 clients=[80, 84, 33, 81, 93, 17, 36, 82, 69, 65] diagnostic_accuracy=10.0000% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=c6432dd6d30651954c718691d66b95ead53f9f364bd41132c4908756853390e2
+ROUND fedrad round=2 clients=[44, 96, 1, 35, 26, 11, 38, 82, 87, 3] diagnostic_accuracy=15.5600% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=c917197f1be42d069897add6b8ef488382188eaa7272b03cab0e494903bf9872
+ROUND fedrad round=3 clients=[95, 67, 96, 71, 1, 80, 99, 45, 52, 27] diagnostic_accuracy=17.8900% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=63d5378c7fb69d515012f5dd9fdd51a0a613f74a62d2c27d9dfaae32f2499c5b
+ROUND fedrad round=4 clients=[40, 10, 96, 66, 89, 32, 95, 55, 25, 5] diagnostic_accuracy=14.6200% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=cdecb81e7d2f4c278c6bb3c48a561eb968bbb76bad1e93a2e8e3f442c02251bc
+ROUND fedrad round=5 clients=[89, 99, 45, 96, 72, 9, 74, 88, 1, 38] diagnostic_accuracy=19.5700% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=8ea1c15e94b4005eb3b2e595a6f5ef9b68dc1af03ec00b89bc8eacebf4fc0a52

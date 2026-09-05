@@ -207,7 +207,10 @@ class ProbeRunner:
         model = copy.deepcopy(self.model_template)
         model.load_state_dict(original, strict=True)
         model.to(self.device)
-        model.eval()  # Freeze BN statistics and disable any future Dropout.
+        # This is deliberately the same training-mode semantics as LocalTrainer's
+        # first formal SGD step.  The probe model is private and discarded after
+        # scoring, so its BN buffers can never enter either TaskSpec or FedAvg.
+        model.train()
         support_images = batch.support_images.to(self.device, non_blocking=True)
         support_labels = batch.support_labels.to(self.device, non_blocking=True)
         query_images = batch.query_images.to(self.device, non_blocking=True)
@@ -215,14 +218,18 @@ class ProbeRunner:
         optimizer = torch.optim.SGD(
             model.parameters(),
             lr=self.config.probe_learning_rate,
-            momentum=0.0,
-            weight_decay=0.0,
+            momentum=self.config.momentum,
+            weight_decay=self.config.weight_decay,
         )
 
         with isolated_python_numpy_rng(batch.probe_seed), isolated_torch_rng(
             batch.probe_seed, self.device
         ):
+            # Query scoring is held out and side-effect-free.  Use eval mode for
+            # both values, while preserving the train-mode adaptation semantics.
+            model.eval()
             reset_loss = _query_loss(model, query_images, query_labels)
+            model.train()
             alignment = 0.0
             gradient_norm = 0.0
             delta_norm = float(task.delta_norm)

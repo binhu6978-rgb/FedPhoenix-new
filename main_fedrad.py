@@ -49,7 +49,7 @@ def parse_args() -> argparse.Namespace:
         description="Clean FedPhoenix baseline and Phase-2 FedRAD"
     )
     parser.add_argument(
-        "--algorithm", choices=("clean", "fedrad"), default="clean"
+        "--algorithm", choices=("clean", "fedrad", "ours"), default="clean"
     )
     parser.add_argument(
         "--diagnostic-probe-rounds",
@@ -105,7 +105,7 @@ def parse_args() -> argparse.Namespace:
         help="1-based first round that executes Probe and Hungarian matching",
     )
     parser.add_argument(
-        "--score-mode", choices=("full", "g_only"), default="full"
+        "--score-mode", choices=("full", "g_only", "functional"), default="full"
     )
     parser.add_argument(
         "--warmup-reference-rounds",
@@ -159,7 +159,7 @@ def main() -> int:
         gate_tau=cli.gate_tau,
         development_force_hungarian=cli.development_force_hungarian,
         matching_start_round=cli.matching_start_round,
-        score_mode=cli.score_mode,
+        score_mode=("functional" if cli.algorithm == "ours" else cli.score_mode),
         warmup_reference_rounds_path=(
             None
             if cli.warmup_reference_rounds is None
@@ -193,7 +193,7 @@ def main() -> int:
     logger = RunLogger(
         config,
         cli.run_name or None,
-        algorithm=("fedrad" if cli.algorithm == "fedrad" else "clean_fedphoenix"),
+        algorithm=("functional_recovery" if cli.algorithm == "ours" else ("fedrad" if cli.algorithm == "fedrad" else "clean_fedphoenix")),
     )
     (logger.run_dir / "runtime_environment.json").write_text(
         json.dumps(
@@ -227,7 +227,7 @@ def main() -> int:
         f"device={device}",
         flush=True,
     )
-    trainer_class = FedRADTrainer if cli.algorithm == "fedrad" else CleanFedPhoenixTrainer
+    trainer_class = FedRADTrainer if cli.algorithm in {"fedrad", "ours"} else CleanFedPhoenixTrainer
     trainer = trainer_class(
         config=config,
         data=data,

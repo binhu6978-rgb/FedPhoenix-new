@@ -9,6 +9,27 @@ from fedrad.scoring import ScoreMatrices
 from fedrad.types import AssignmentDecision, AssignmentPair
 
 
+def assign_functional_recovery(
+    *, client_order: tuple[int, ...], task_order: tuple[int, ...], Q: np.ndarray
+) -> AssignmentDecision:
+    """Direct maximum-weight assignment for the formal functional-recovery path.
+
+    Unlike the historical FedRAD helper, this has no gate or fallback: a
+    finite utility matrix always dispatches the Hungarian permutation.
+    """
+    value = np.asarray(Q, dtype=np.float64)
+    size = len(client_order)
+    if value.shape != (size, size) or len(task_order) != size:
+        raise ValueError("functional recovery requires a square aligned Q")
+    if not np.isfinite(value).all():
+        raise ValueError("functional recovery Q contains NaN or Inf")
+    rows, cols = linear_sum_assignment(-value)
+    chosen = tuple(AssignmentPair(client_order[r], r, task_order[c], float(value[r, c])) for r, c in sorted(zip(rows.tolist(), cols.tolist())))
+    baseline = tuple(AssignmentPair(client_id, r, task_order[r], float(value[r, r])) for r, client_id in enumerate(client_order))
+    _validate_bijection(chosen, expected_size=size)
+    return AssignmentDecision(baseline, chosen, chosen, float(sum(x.score for x in chosen)), float(sum(x.score for x in baseline)), 0.0, 0.0, True, False, "functional_recovery_hungarian")
+
+
 def _validate_bijection(
     pairs: tuple[AssignmentPair, ...], *, expected_size: int
 ) -> None:
@@ -91,4 +112,3 @@ def assign_with_gate(
         development_force_hungarian=bool(development_force_hungarian),
         fallback_reason=fallback_reason,
     )
-

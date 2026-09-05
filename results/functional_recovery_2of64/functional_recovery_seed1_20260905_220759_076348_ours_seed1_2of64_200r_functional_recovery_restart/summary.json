@@ -1,0 +1,20 @@
+{
+  "status": "complete",
+  "rounds": 200,
+  "initial_state_hash": "8dd47e9ea579a76bc97c5826572ec9c984931f0d9c41705131ec5e3add566ce7",
+  "final_state_hash": "63c0c63be37556e7a61d4e44095302b34c5e970b4b1d9fed4c1b4856aa166f73",
+  "partition_fingerprint": "f8fcaa0f17c5d2078c5d24ece11b3f8cfcb82553733fb972155b7452d87a8fd0",
+  "final_diagnostic_accuracy": 70.94,
+  "final_diagnostic_loss": 0.8490585129737854,
+  "mean_probe_seconds": 15.403712772500057,
+  "mean_matching_seconds": 0.00034669200000735144,
+  "total_reliability_probe_seconds": 0.0,
+  "mean_formal_training_seconds": 9.954548706999981,
+  "peak_gpu_memory_bytes": 477053952,
+  "development_force_hungarian": false,
+  "matching_start_round": 1,
+  "score_mode": "functional",
+  "warmup_rounds_asserted": 0,
+  "scoring_weights_notice": "development defaults; not final calibrated values",
+  "gate_tau_notice": "development placeholder; not calibrated"
+}
