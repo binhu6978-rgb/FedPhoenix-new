@@ -1,0 +1,17 @@
+{
+  "decision": "regime-dependent / heterogeneous",
+  "rationale": "The four frozen snapshots are not consistent: r20 is near its interaction null, r40 has negative interaction correspondence and negative held-out matching value, r120 has positive interaction correspondence but negative held-out matching value, and only r160 has both primary evidence streams positive. This does not support a stable, trajectory-wide conditional-utility assignment effect.",
+  "analyzed_snapshots": [
+    20,
+    40,
+    120,
+    160
+  ],
+  "random_assignments_or_null_draws": 10000,
+  "trajectory_descriptive_only": {
+    "round_150_200_accuracy_std": 5.550374995557601,
+    "round_150_200_mean_abs_adjacent_change": 5.327000000000002
+  },
+  "uses_test_set": false,
+  "runs_new_fl_trajectory": false
+}

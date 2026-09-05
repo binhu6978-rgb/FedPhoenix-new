@@ -71,6 +71,12 @@ def parse_args() -> argparse.Namespace:
         help="override development query size; historical value is 32",
     )
     parser.add_argument("--rounds", type=int, default=1200)
+    parser.add_argument(
+        "--reset-ratio",
+        type=float,
+        default=None,
+        help="FedPhoenix reset ratio; default is the verified AutoRun main setting (2/64)",
+    )
     parser.add_argument("--seed", type=int, default=1)
     parser.add_argument("--device", default="auto")
     parser.add_argument("--num-workers", type=int, default=0)
@@ -139,6 +145,7 @@ def main() -> int:
     config = replace(
         defaults,
         rounds=cli.rounds,
+        reset_ratio=(defaults.reset_ratio if cli.reset_ratio is None else cli.reset_ratio),
         seed=cli.seed,
         device=cli.device,
         num_workers=cli.num_workers,

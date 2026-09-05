@@ -27,7 +27,8 @@ class FedRADConfig:
     weight_decay: float = 0.0
     num_workers: int = 0
 
-    reset_ratio: float = 1.0 / 64.0
+    # Faithful original FedPhoenix main-experiment setting (AutoRun.py).
+    reset_ratio: float = 2.0 / 64.0
     fp_conv_rounds: int = 1000
     reset_method: str = "ori_normal"
 

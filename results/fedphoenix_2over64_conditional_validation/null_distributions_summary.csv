@@ -1,0 +1,5 @@
+round,random_count,interaction_null_method,overlap_null_method
+20,10000,independent client and state reindexing of I2,two independent random one-to-one assignments
+40,10000,independent client and state reindexing of I2,two independent random one-to-one assignments
+120,10000,independent client and state reindexing of I2,two independent random one-to-one assignments
+160,10000,independent client and state reindexing of I2,two independent random one-to-one assignments

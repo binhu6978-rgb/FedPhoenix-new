@@ -1,0 +1,19 @@
+{
+  "dataset": "cifar10",
+  "model": "resnet18",
+  "num_users": 100,
+  "clients_per_round": 10,
+  "dirichlet_beta": 0.3,
+  "seed": 1,
+  "local_epochs": 5,
+  "local_batch_size": 50,
+  "learning_rate": 0.01,
+  "momentum": 0.5,
+  "weight_decay": 0.0,
+  "num_workers": 0,
+  "reset_ratio": 0.03125,
+  "reset_method": "ori_normal",
+  "fp_conv_rounds": 1000,
+  "eval_batch_size": 256,
+  "partition_path": "C:\\Users\\admin\\Desktop\\need_do\\new_paper_four\\FedPhoenix-new\\data\\cifar10_100_noniidCase5_beta0.3.json"
+}
