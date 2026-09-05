@@ -1,0 +1,59 @@
+{
+  "experiment": "delayed functional recovery activation",
+  "objective": "maximize seed-1 200-round peak accuracy under faithful FedPhoenix 2/64",
+  "fixed_reference": {
+    "clean": {
+      "peak": 73.7,
+      "peak_round": 175,
+      "final": 72.29,
+      "last20": 67.316,
+      "last50": 66.701
+    },
+    "full_functional_recovery": {
+      "activation_round": 1,
+      "peak": 74.01,
+      "peak_round": 192,
+      "final": 70.94,
+      "last20": 68.36,
+      "last50": 67.6298
+    }
+  },
+  "variants": [
+    {
+      "activation_round": 121,
+      "peak": 73.84,
+      "peak_round": 164,
+      "final": 72.94,
+      "last20": 67.526,
+      "last50": 67.078,
+      "peak_delta_vs_clean_pp": 0.14,
+      "peak_delta_vs_full_pp": -0.17,
+      "warmup_rounds_hash_verified": 120
+    },
+    {
+      "activation_round": 141,
+      "peak": 73.44,
+      "peak_round": 164,
+      "final": 72.27,
+      "last20": 67.743,
+      "last50": 67.1626,
+      "peak_delta_vs_clean_pp": -0.26,
+      "peak_delta_vs_full_pp": -0.57,
+      "warmup_rounds_hash_verified": 140
+    },
+    {
+      "activation_round": 161,
+      "peak": 74.0,
+      "peak_round": 192,
+      "final": 72.37,
+      "last20": 68.243,
+      "last50": 66.93,
+      "peak_delta_vs_clean_pp": 0.3,
+      "peak_delta_vs_full_pp": -0.01,
+      "warmup_rounds_hash_verified": 160
+    }
+  ],
+  "best_delayed_variant": "activation_round_161",
+  "beats_full_functional_recovery_peak": false,
+  "conclusion": "Delayed activation removes the early average accuracy deficit but does not improve the 74.01% peak. Activation-round-only search is stopped."
+}

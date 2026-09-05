@@ -1,0 +1,203 @@
+Run directory: C:\Users\admin\Desktop\need_do\new_paper_four\FedPhoenix-new\results\delayed_functional_recovery_2of64\functional_recovery_seed1_20260906_003619_475535_delayed_fr_act161_seed1_2of64_200r
+Partition fingerprint: f8fcaa0f17c5d2078c5d24ece11b3f8cfcb82553733fb972155b7452d87a8fd0; device=cuda:0
+ROUND fedrad-warmup round=1 clients=[80, 84, 33, 81, 93, 17, 36, 82, 69, 65] diagnostic_accuracy=10.0100% global_hash=e3fdbbe17a554198a37c20ed6f01b3c401d798ff50eeb632e38909930f3ee397
+ROUND fedrad-warmup round=2 clients=[44, 96, 1, 35, 26, 11, 38, 82, 87, 3] diagnostic_accuracy=15.5400% global_hash=2606e658e200d853736b69b3583a6af278c1c5e9953c4bbd86f0acdfcf108799
+ROUND fedrad-warmup round=3 clients=[95, 67, 96, 71, 1, 80, 99, 45, 52, 27] diagnostic_accuracy=17.8400% global_hash=aaa36de87a6b955f5ad3e7c61903d724a1321cc8b940e92417ed3540ec160a56
+ROUND fedrad-warmup round=4 clients=[40, 10, 96, 66, 89, 32, 95, 55, 25, 5] diagnostic_accuracy=15.8500% global_hash=88171083e2dede04a133caf8c0fc495f002c0021c6705677e2c8c6d4553ec169
+ROUND fedrad-warmup round=5 clients=[89, 99, 45, 96, 72, 9, 74, 88, 1, 38] diagnostic_accuracy=20.4000% global_hash=0d462a65c3d750ae88d42a003d8f4be07d23b3bd3f6e2b3a00c6d7bd75c1278b
+ROUND fedrad-warmup round=6 clients=[0, 86, 4, 23, 24, 1, 62, 83, 66, 93] diagnostic_accuracy=22.2700% global_hash=d5a5468208d4cde334732177ceabb8a4b76c13a82272ac9763b008540e835eb2
+ROUND fedrad-warmup round=7 clients=[6, 59, 72, 30, 91, 43, 75, 76, 15, 61] diagnostic_accuracy=24.9200% global_hash=6113fd81ee8018ad663aaea70821a4b9445986a0a1c2fc496b3951f96dab6809
+ROUND fedrad-warmup round=8 clients=[44, 88, 74, 48, 59, 79, 25, 52, 45, 55] diagnostic_accuracy=20.5200% global_hash=8fba8d872ced97897191ef455f6cee47d7a27c959f9f35bf745766dac103f689
+ROUND fedrad-warmup round=9 clients=[3, 60, 35, 33, 22, 66, 45, 68, 67, 75] diagnostic_accuracy=27.7300% global_hash=005b676cfc40d84f46191ffa26440e1216a05930705e4c00a5898d6fb3a66d47
+ROUND fedrad-warmup round=10 clients=[64, 91, 12, 52, 16, 65, 50, 68, 33, 30] diagnostic_accuracy=26.7100% global_hash=9e0af4decba46bb4d9e3a6f11c60858dc5a12b4a09c5afe38441b1f50e223152
+ROUND fedrad-warmup round=11 clients=[54, 27, 23, 37, 75, 33, 41, 46, 52, 24] diagnostic_accuracy=24.2700% global_hash=6066186166a67b0e4d9451229f7622755de65d161f7542140890af0dea80c5a0
+ROUND fedrad-warmup round=12 clients=[54, 45, 28, 44, 15, 1, 93, 12, 88, 40] diagnostic_accuracy=28.1100% global_hash=1ee16506188d89ada0a6357af650655fa4516f749a03cbd8904d6f42fb89ded0
+ROUND fedrad-warmup round=13 clients=[70, 75, 5, 68, 36, 79, 72, 78, 57, 44] diagnostic_accuracy=27.8800% global_hash=ef976f91d21cac546b83bf16f21a8bb8e08afad45ec34e2aed8957d6533862f5
+ROUND fedrad-warmup round=14 clients=[41, 9, 30, 89, 40, 49, 3, 22, 8, 16] diagnostic_accuracy=31.5500% global_hash=12ca0a05bc8ebbf1d78ef782d8c8cf80a113e32b94eb1edcc8631e1f69e6ece0
+ROUND fedrad-warmup round=15 clients=[82, 28, 69, 81, 56, 71, 85, 27, 37, 66] diagnostic_accuracy=28.7200% global_hash=f3da012d3e54238d78ca28c203130bb6cdc07150842a08d76a97dc2889a09c0b
+ROUND fedrad-warmup round=16 clients=[60, 13, 26, 12, 1, 28, 88, 86, 11, 43] diagnostic_accuracy=31.8700% global_hash=758f23b07e7cef234881598735172da9e250f7c5181f687b2aa4f07abf437254
+ROUND fedrad-warmup round=17 clients=[93, 16, 72, 75, 10, 4, 38, 71, 42, 62] diagnostic_accuracy=30.2700% global_hash=da65d950290704894d2bd8cd388037ad0ba4613bd9b24ec9294c58d3f17b8841
+ROUND fedrad-warmup round=18 clients=[36, 47, 1, 64, 57, 97, 29, 6, 67, 92] diagnostic_accuracy=32.1800% global_hash=a865fc7c26a548e63e2d14e8d98368ae735297a279db584959052c4ff7909fd9
+ROUND fedrad-warmup round=19 clients=[48, 87, 17, 57, 22, 81, 4, 51, 94, 63] diagnostic_accuracy=31.4700% global_hash=e47b23b77bae1576ebdd8ffc134c35d108d64e964a07fa1c0677a4cfbc47aaf1
+ROUND fedrad-warmup round=20 clients=[9, 17, 59, 11, 2, 95, 68, 28, 60, 14] diagnostic_accuracy=34.0800% global_hash=c4ab3b261c502e1214f0b21661e5ffbbb03e4487463542bb536d1657a94858ba
+ROUND fedrad-warmup round=21 clients=[26, 25, 15, 93, 45, 54, 68, 90, 76, 10] diagnostic_accuracy=28.6600% global_hash=9e743cf1342bd23ef05a773d77bc23f034b99948b549dda831aee958a25b8c8d
+ROUND fedrad-warmup round=22 clients=[84, 74, 93, 1, 48, 44, 29, 26, 94, 75] diagnostic_accuracy=32.2800% global_hash=722f831b20094fac147a64b69e29e8743b63c7170e72f39441428fbd79fe6ae5
+ROUND fedrad-warmup round=23 clients=[71, 58, 50, 22, 59, 84, 10, 70, 43, 67] diagnostic_accuracy=32.3700% global_hash=2109d5ccb52f4813ea6592de0665db582c90baafcff51f82f25622c8e3366cf3
+ROUND fedrad-warmup round=24 clients=[70, 54, 33, 75, 31, 58, 17, 6, 3, 51] diagnostic_accuracy=34.7400% global_hash=5970dd053ca854128e21f31ede9b9a5d9467430bd0c65bbefb5620890156a1cb
+ROUND fedrad-warmup round=25 clients=[42, 87, 33, 36, 30, 84, 78, 98, 71, 75] diagnostic_accuracy=18.0100% global_hash=dc425486a33211f7d9106e0734afdfc3b6db95b85a66a24d19444d1a58a6eb77
+ROUND fedrad-warmup round=26 clients=[41, 47, 34, 10, 51, 11, 50, 16, 86, 64] diagnostic_accuracy=38.8100% global_hash=4d7bd47f37c35b5a6f446a7aa08c42629983e636f3a1bfeebba52d94dd027551
+ROUND fedrad-warmup round=27 clients=[58, 82, 63, 50, 98, 84, 4, 46, 65, 88] diagnostic_accuracy=32.6300% global_hash=bddf914fc9a4c4a5e84f09d3623e759b437f5656918c4e8aac35ad716cdae6d4
+ROUND fedrad-warmup round=28 clients=[99, 88, 69, 16, 46, 29, 90, 91, 4, 45] diagnostic_accuracy=39.8500% global_hash=a18be18940b2dfa95c2ef58bc111a0c60edfd287c6e0694977a1dbda4a82879f
+ROUND fedrad-warmup round=29 clients=[80, 73, 28, 34, 1, 10, 13, 65, 5, 49] diagnostic_accuracy=39.2500% global_hash=73b59171cc4812c6935ff4c6482039eeae487d6a0a0f7e2ae774da33504fd167
+ROUND fedrad-warmup round=30 clients=[62, 41, 74, 11, 99, 8, 75, 26, 81, 85] diagnostic_accuracy=38.2300% global_hash=30eff5819dae7be59c39c43a10142a5bfff3706b89042ec75f41ef853810478c
+ROUND fedrad-warmup round=31 clients=[96, 81, 77, 83, 14, 50, 13, 67, 53, 91] diagnostic_accuracy=48.1700% global_hash=87fd4405c02b4b1422b0e25c6c8835684f2ff86f492ed822fdb5648bb1c6107f
+ROUND fedrad-warmup round=32 clients=[40, 73, 70, 3, 6, 94, 1, 25, 20, 10] diagnostic_accuracy=37.5000% global_hash=d6ae3d6946160ed92c53555f4d0ba1097fd03f9f1a07614df32fb7a2708e2160
+ROUND fedrad-warmup round=33 clients=[45, 16, 51, 88, 17, 78, 36, 44, 21, 62] diagnostic_accuracy=42.4600% global_hash=8caa1da8bcd3bfb76005f240c0cd86fe3091dde8aaeece3b132ba5b823de8a3a
+ROUND fedrad-warmup round=34 clients=[92, 43, 97, 61, 58, 67, 1, 98, 30, 75] diagnostic_accuracy=42.9500% global_hash=ceaa5d5d7754d283b706cdbfd9c9b76e59267bdebfc5f345067989a22219b252
+ROUND fedrad-warmup round=35 clients=[31, 89, 17, 66, 92, 23, 96, 9, 35, 20] diagnostic_accuracy=42.9900% global_hash=d46e0e6bf89e8f0c90f91c0137b29aa7c5988fd96902b81480cbbf28c6146428
+ROUND fedrad-warmup round=36 clients=[72, 68, 65, 28, 23, 85, 16, 60, 73, 78] diagnostic_accuracy=47.8300% global_hash=113a5c7eb9238a4ba2243b907e2b7aa64e7d222a7dde8855621bd2daf376881f
+ROUND fedrad-warmup round=37 clients=[66, 49, 62, 9, 84, 68, 74, 3, 44, 71] diagnostic_accuracy=28.1500% global_hash=2f71dc875fccdb30c2e0af3f2276175c8dace6ce52a6718cc114ddb9663f2e67
+ROUND fedrad-warmup round=38 clients=[50, 73, 27, 38, 8, 53, 21, 14, 28, 64] diagnostic_accuracy=46.8200% global_hash=8e0b5b8fabd02fdd081b2d0702c569176b4b26e14dee1a392a6531caa2dc245f
+ROUND fedrad-warmup round=39 clients=[48, 87, 40, 59, 3, 10, 75, 35, 49, 89] diagnostic_accuracy=44.7700% global_hash=082e64c4317177a54ea70f071f7cc2c929c56afb5482ff9babb773121fc231bf
+ROUND fedrad-warmup round=40 clients=[83, 93, 34, 60, 90, 45, 42, 41, 91, 36] diagnostic_accuracy=49.1100% global_hash=14a8fac05a0c867a5b6775c1ef0ae13e47df4228ac983609b277c441b9ab4179
+ROUND fedrad-warmup round=41 clients=[75, 52, 20, 80, 90, 93, 4, 51, 13, 98] diagnostic_accuracy=41.7100% global_hash=98bc73fbade1686ddcacf07ab055ae11db1bd240da99820760848d4af92816c6
+ROUND fedrad-warmup round=42 clients=[98, 79, 17, 10, 3, 12, 29, 26, 54, 58] diagnostic_accuracy=32.8300% global_hash=1d9659edcd1e4cdef47010763ed795761077b7a287da51a9212cfc268982c43c
+ROUND fedrad-warmup round=43 clients=[32, 15, 47, 9, 7, 16, 24, 57, 71, 28] diagnostic_accuracy=44.7300% global_hash=6046589ca832e164c8964dff7897037e18f022535f0740c8c66f6948621a8614
+ROUND fedrad-warmup round=44 clients=[76, 67, 81, 35, 44, 49, 32, 99, 69, 51] diagnostic_accuracy=47.3300% global_hash=b6628329418130421b50fee97184e1830ac89c5b1f9636859441bc842bd4e192
+ROUND fedrad-warmup round=45 clients=[42, 4, 95, 71, 84, 22, 61, 5, 10, 28] diagnostic_accuracy=43.0100% global_hash=72070fd50e884fcbb610e17a7715a6a719bfd7e6795239a5e01bf5fc0d23a787
+ROUND fedrad-warmup round=46 clients=[61, 52, 80, 26, 37, 44, 85, 1, 99, 55] diagnostic_accuracy=55.8100% global_hash=62f15f4912222fb8bac9f893ec4e7555cfcafae3c3913e082b1dc2540b715bed
+ROUND fedrad-warmup round=47 clients=[23, 10, 75, 28, 19, 22, 43, 13, 98, 85] diagnostic_accuracy=53.3200% global_hash=9437a3106e1011a50a4e1182fd98d10150d570ac19714bd568cc223c9a82b594
+ROUND fedrad-warmup round=48 clients=[18, 1, 96, 63, 59, 71, 88, 39, 97, 68] diagnostic_accuracy=49.1600% global_hash=d04b7adccc3d176dce065b26d59e0de4fbafe401be70c55dee3922489c5c4a8d
+ROUND fedrad-warmup round=49 clients=[44, 11, 93, 47, 54, 9, 81, 94, 45, 65] diagnostic_accuracy=56.6800% global_hash=15df8cf85f626b3cbe8a5824a4ebb51324426100cb485dfcc05720e2629298b8
+ROUND fedrad-warmup round=50 clients=[48, 43, 51, 76, 99, 39, 38, 73, 89, 80] diagnostic_accuracy=49.7300% global_hash=9866fd5f48b7a14b79e562f0ba2f5786eced70e03fef1ed70e471309356e376a
+ROUND fedrad-warmup round=51 clients=[34, 16, 99, 17, 62, 58, 96, 29, 90, 30] diagnostic_accuracy=54.8200% global_hash=383620b45eb4e5ee78a497f4f9ee13efcb7beacebce4e7afcdfb2bda7da6e79b
+ROUND fedrad-warmup round=52 clients=[8, 59, 78, 95, 25, 35, 99, 86, 54, 64] diagnostic_accuracy=57.0800% global_hash=40912d558b3589c12bffc8b75d8769cf4eb8bd48ed6c7f35c4e11b64b18fb4ca
+ROUND fedrad-warmup round=53 clients=[87, 42, 55, 74, 37, 10, 26, 23, 57, 62] diagnostic_accuracy=49.4600% global_hash=6e0244c0bad4a0e27b84256fa133491f3ddc63f134cba8c4520b7262983abe74
+ROUND fedrad-warmup round=54 clients=[84, 2, 76, 48, 68, 40, 92, 8, 42, 46] diagnostic_accuracy=53.6700% global_hash=8c157ef4df3170f45fb4bedd95dffbdd2821e49d697c758f234be0e0087ff71e
+ROUND fedrad-warmup round=55 clients=[91, 70, 16, 58, 10, 35, 31, 86, 62, 54] diagnostic_accuracy=54.4600% global_hash=cb90b3b4aa9085c74c2136bb3cdae23218beb0c52a7143040a90cfffb49e54ff
+ROUND fedrad-warmup round=56 clients=[32, 41, 20, 75, 69, 62, 74, 38, 80, 58] diagnostic_accuracy=46.6800% global_hash=3131808b9ee636fd82523cc189269aab9ee4e33c64e0273ffc5f3259274bfa24
+ROUND fedrad-warmup round=57 clients=[89, 0, 84, 16, 97, 67, 41, 38, 59, 60] diagnostic_accuracy=50.0900% global_hash=63e9de2be6cce75586c986f06d25239da409c48d81bc64e841bffdfa497d5fc3
+ROUND fedrad-warmup round=58 clients=[59, 21, 34, 35, 95, 41, 9, 12, 47, 42] diagnostic_accuracy=52.4600% global_hash=0f52faaa851b8785d91901939c4ac0b46d2939618a873ae48baf6dd18d620880
+ROUND fedrad-warmup round=59 clients=[88, 78, 75, 43, 57, 63, 34, 79, 17, 93] diagnostic_accuracy=52.8100% global_hash=b7acdee00561cc390f4c7d8e0494f4cb0181a11d13bae6165c72f706de5f4ed4
+ROUND fedrad-warmup round=60 clients=[76, 35, 9, 75, 32, 97, 53, 72, 27, 91] diagnostic_accuracy=51.5400% global_hash=148e64fcbf3555105f0b4667a8b180b45bde6cf560de17e63599c95e8886870f
+ROUND fedrad-warmup round=61 clients=[60, 14, 9, 43, 15, 68, 7, 44, 65, 89] diagnostic_accuracy=59.7400% global_hash=c0a200ac2a26b626fe3147af2ad7360c7ad05351309fcbdf8d814ccece7717d3
+ROUND fedrad-warmup round=62 clients=[56, 67, 28, 93, 30, 71, 78, 48, 25, 19] diagnostic_accuracy=58.8500% global_hash=58b0ed5c7da502780be9ef4a8283ff29a9ec2e059f7e049433763f92ed12b1b3
+ROUND fedrad-warmup round=63 clients=[61, 18, 63, 89, 0, 99, 42, 76, 81, 9] diagnostic_accuracy=54.9300% global_hash=b9ec386e15ab88df6a3b0466557d63b5effede634aa9b1625f721b9c45dc81b1
+ROUND fedrad-warmup round=64 clients=[14, 22, 8, 93, 29, 90, 73, 28, 57, 58] diagnostic_accuracy=58.4600% global_hash=9dd8f687d8e07d0ab3b9eb26fcba11f2a8354327aa1db2f3a9a774f23a82c85d
+ROUND fedrad-warmup round=65 clients=[16, 90, 78, 23, 55, 61, 31, 0, 11, 82] diagnostic_accuracy=61.7600% global_hash=1a9cb83b0692de628f0982d373f882c99273ebc241bdc516b2b2da00308c16b6
+ROUND fedrad-warmup round=66 clients=[28, 65, 16, 72, 11, 36, 19, 51, 81, 53] diagnostic_accuracy=60.7900% global_hash=1287d17099ce0a474e519ac85c6067b42bba97a952972baf3dbb1986c828e90b
+ROUND fedrad-warmup round=67 clients=[53, 63, 96, 28, 78, 90, 58, 73, 34, 4] diagnostic_accuracy=58.8600% global_hash=d46fc288671141160a1401c8f215aece10edc06c82b9222f38b0f48c1089149b
+ROUND fedrad-warmup round=68 clients=[38, 57, 22, 41, 70, 39, 10, 5, 17, 32] diagnostic_accuracy=56.7300% global_hash=cd56dec6d4c519ee820df37ab21cdecd30e7a024420de95d61d1815962570819
+ROUND fedrad-warmup round=69 clients=[60, 67, 48, 59, 46, 94, 22, 29, 53, 97] diagnostic_accuracy=60.7200% global_hash=218a110a3760b4561c846d88f4f176e0a2987dc54f3afa32fd32a2a3a2f0bc56
+ROUND fedrad-warmup round=70 clients=[61, 33, 76, 48, 37, 54, 38, 13, 8, 39] diagnostic_accuracy=47.7200% global_hash=57e3cf358080e7917863d89c10144675ab4d2eebd0d08d001ff7e8709b93dbb5
+ROUND fedrad-warmup round=71 clients=[31, 88, 91, 25, 50, 95, 67, 45, 80, 70] diagnostic_accuracy=57.6400% global_hash=f924ba2f517724220ccf7c4a45ebac26899b3f0c87845a2177dfe888946012e7
+ROUND fedrad-warmup round=72 clients=[3, 23, 17, 94, 61, 43, 63, 91, 37, 84] diagnostic_accuracy=48.6500% global_hash=7992392a7efbf63aa356d83b3823c4fb314f9254effda9aca8b204cb24748403
+ROUND fedrad-warmup round=73 clients=[11, 73, 78, 47, 45, 83, 36, 75, 91, 57] diagnostic_accuracy=60.2500% global_hash=8875a1951a1861db8bf76b3043c6b09d963e116fe136d5c3bd60ddbaacf16068
+ROUND fedrad-warmup round=74 clients=[46, 54, 66, 62, 96, 49, 24, 75, 60, 52] diagnostic_accuracy=57.4500% global_hash=6265d187eed6c28bef54756556400ef329b0f2ea6354bba671507e525445ad48
+ROUND fedrad-warmup round=75 clients=[75, 51, 39, 89, 14, 54, 41, 30, 24, 80] diagnostic_accuracy=54.2400% global_hash=a8cd921798cc3716d9f11aa732dcd4f7e861b0fcd261605b43a817da956a703a
+ROUND fedrad-warmup round=76 clients=[67, 90, 45, 78, 32, 86, 50, 55, 33, 60] diagnostic_accuracy=64.7300% global_hash=5de7c96a07b57adb773dbe8770c71730a459abd8cdc5d95365372b7122a87456
+ROUND fedrad-warmup round=77 clients=[4, 16, 51, 33, 89, 30, 13, 77, 43, 85] diagnostic_accuracy=49.8800% global_hash=d7f47acd3d4bcbfd678d65e2ee459ed17c53d1dfcd6268eb598cafa004c26f1e
+ROUND fedrad-warmup round=78 clients=[97, 76, 96, 72, 42, 17, 33, 51, 24, 36] diagnostic_accuracy=60.4500% global_hash=22fed2cd27a3b355b0c55993318df30a717e362e80cdf95c28d474035b521934
+ROUND fedrad-warmup round=79 clients=[22, 47, 61, 27, 50, 96, 89, 97, 85, 30] diagnostic_accuracy=59.0900% global_hash=118aff307cbeac96cf5ff4fe9c9b909a02310965f535c2c2eacc3e363af44c69
+ROUND fedrad-warmup round=80 clients=[44, 70, 23, 38, 74, 21, 82, 4, 88, 98] diagnostic_accuracy=56.4200% global_hash=a5506d3a4c2bf4fbaaaafe0fcd6a5208a2c27b0c71996ee21f779e74d87e55e8
+ROUND fedrad-warmup round=81 clients=[90, 72, 65, 50, 85, 56, 4, 80, 31, 17] diagnostic_accuracy=58.0100% global_hash=b9025e84133e59b12094b726c7ec0c433dd5e6c83b2ee35ed10fdfc70a19f1d4
+ROUND fedrad-warmup round=82 clients=[61, 40, 41, 34, 97, 51, 50, 13, 22, 8] diagnostic_accuracy=62.7000% global_hash=04adc7c9d81a608a2ac62a0888a3ee83f197940b04cfa0b0a04cb3a6cfc68622
+ROUND fedrad-warmup round=83 clients=[87, 54, 63, 83, 96, 26, 0, 59, 69, 14] diagnostic_accuracy=61.1900% global_hash=c5b3696a58218d6aa31f9c107d1c6a2cb6e226216da51fac9fcdd3e439173f78
+ROUND fedrad-warmup round=84 clients=[58, 47, 83, 36, 8, 2, 56, 49, 10, 38] diagnostic_accuracy=54.9900% global_hash=936c0d49301f9dfb6cdbd8a372202ccc4199d6ac6cbc878a3773a2095609b3d2
+ROUND fedrad-warmup round=85 clients=[89, 90, 81, 54, 59, 4, 53, 47, 52, 19] diagnostic_accuracy=64.4500% global_hash=626cbd1020717a3f2585e43027115639d81bb981b6dfc1a541d09f2eca806c1e
+ROUND fedrad-warmup round=86 clients=[24, 13, 81, 73, 19, 55, 40, 76, 57, 96] diagnostic_accuracy=64.9400% global_hash=2fa3781f6fe7933023e53bd566b2b15c01b0772c8f7a66f1dae7e77c3b7b972f
+ROUND fedrad-warmup round=87 clients=[31, 75, 94, 20, 87, 26, 29, 70, 2, 50] diagnostic_accuracy=57.1200% global_hash=59f2f402dca8558fee5e6aec2f065a01859cab3865c06ef20041c9a224e32cc4
+ROUND fedrad-warmup round=88 clients=[0, 9, 46, 37, 72, 83, 73, 16, 55, 27] diagnostic_accuracy=56.5300% global_hash=e57488e80a1139ae4ccedbec75ea7f3e892cb17c3ee00deb92617b72778b4d05
+ROUND fedrad-warmup round=89 clients=[80, 29, 9, 50, 26, 81, 48, 82, 37, 15] diagnostic_accuracy=54.8300% global_hash=0e6253a4d2d079d31d9988a06f2557c00c354d15c3e670a37b10e114d436af31
+ROUND fedrad-warmup round=90 clients=[82, 6, 87, 74, 29, 50, 62, 67, 12, 83] diagnostic_accuracy=69.2400% global_hash=53060813724046da2042a1444b3cc671320bbf699b61ec637e39f0ae75d79129
+ROUND fedrad-warmup round=91 clients=[36, 75, 89, 43, 12, 21, 95, 72, 24, 63] diagnostic_accuracy=54.7600% global_hash=954cc8b1e6136bc9def1895777db9f5ab88df13e92e6b54f8358fbbc60c382d5
+ROUND fedrad-warmup round=92 clients=[34, 15, 31, 94, 46, 70, 19, 80, 6, 88] diagnostic_accuracy=61.9800% global_hash=a5e1a10cb8908d3674984cda3f6bd6736f610f1ba9df979ca3841a1d124bc4ac
+ROUND fedrad-warmup round=93 clients=[70, 92, 72, 77, 23, 53, 1, 12, 97, 93] diagnostic_accuracy=59.0400% global_hash=7311017ecf2d24b7d700563e6143780d28ce5f0940434af7381ffd477959918b
+ROUND fedrad-warmup round=94 clients=[13, 38, 36, 14, 57, 77, 66, 73, 3, 0] diagnostic_accuracy=55.6800% global_hash=c4981f1ad71b1252442060971deebb5cb7ae9d96c8325625a02ef56904ec112c
+ROUND fedrad-warmup round=95 clients=[13, 19, 10, 24, 76, 57, 88, 23, 61, 31] diagnostic_accuracy=61.0200% global_hash=df779cc867b76135b1b0477fb25150270dc2c7eca736e81f4954b011cc5d9e31
+ROUND fedrad-warmup round=96 clients=[18, 45, 94, 24, 56, 67, 10, 14, 13, 9] diagnostic_accuracy=65.2600% global_hash=05834264802c51fb31edda056c79253caae3c046bca3eb10a501886e9a06da32
+ROUND fedrad-warmup round=97 clients=[13, 48, 73, 93, 70, 1, 43, 77, 76, 88] diagnostic_accuracy=59.3500% global_hash=3c57246e0b7e1246587064413f0dc3368238222c421cc1c4bc1ebf5e5a67d7ac
+ROUND fedrad-warmup round=98 clients=[21, 45, 83, 68, 75, 65, 96, 1, 77, 73] diagnostic_accuracy=63.5700% global_hash=e68fcf9f4d68333217c7862a45967f07601c00fecdf280142c2691039cd9527b
+ROUND fedrad-warmup round=99 clients=[81, 84, 60, 18, 45, 47, 94, 83, 76, 22] diagnostic_accuracy=58.7900% global_hash=f1b9b325d18627edc3d1ff70bc92add4a74a93e28f468c6a77a14cf32214830e
+ROUND fedrad-warmup round=100 clients=[21, 69, 47, 34, 65, 81, 93, 44, 30, 84] diagnostic_accuracy=58.5800% global_hash=ee7c42693dd7eb0d3810fc30eda318b7f735016461c8ed7f5011089e73a202e1
+ROUND fedrad-warmup round=101 clients=[22, 38, 77, 15, 11, 61, 37, 34, 87, 3] diagnostic_accuracy=63.0100% global_hash=16bccb12cf51d134d2926b1ae9b41340f1f7301d5d1959bf06490cddaaa46eba
+ROUND fedrad-warmup round=102 clients=[96, 9, 26, 58, 69, 44, 13, 93, 61, 43] diagnostic_accuracy=59.1900% global_hash=45a268f52508c3be29db7f6f744bc1c7777ef87dda11d49fc4076f7eaac72b01
+ROUND fedrad-warmup round=103 clients=[13, 34, 27, 16, 72, 98, 14, 19, 9, 46] diagnostic_accuracy=57.6000% global_hash=f411bdc6dbf6133610243de064a34091bcd484f80ef462093dfe0eaa9d088667
+ROUND fedrad-warmup round=104 clients=[29, 72, 81, 80, 68, 85, 14, 0, 93, 52] diagnostic_accuracy=66.3500% global_hash=1c7d1c33a57547b21d8e98b81d2a26b42c7ae3c8a07ddadcf66b15e582b04d78
+ROUND fedrad-warmup round=105 clients=[17, 69, 35, 86, 83, 84, 23, 56, 89, 60] diagnostic_accuracy=62.3900% global_hash=b518568b22ec30f812522b074693535e1d3d5ff5a784f766e042c275c9abf881
+ROUND fedrad-warmup round=106 clients=[94, 79, 36, 8, 19, 16, 13, 30, 25, 3] diagnostic_accuracy=51.6100% global_hash=973a83062bf2a85f0b8e74f2bd285846cd65809ecf945066e6ded7ca50b7a621
+ROUND fedrad-warmup round=107 clients=[45, 82, 32, 52, 17, 96, 6, 57, 67, 74] diagnostic_accuracy=61.7800% global_hash=9b15596664802b79cb67a2c9eb7090ff5233dbc73f21f646d61b6c4b2231ad7a
+ROUND fedrad-warmup round=108 clients=[61, 20, 59, 99, 39, 42, 73, 53, 45, 8] diagnostic_accuracy=70.1700% global_hash=e67708dd99a62475d257b9379b789705ecdb4ec64b523a0ee6c4a1407c86c65d
+ROUND fedrad-warmup round=109 clients=[60, 38, 5, 54, 66, 33, 80, 83, 9, 4] diagnostic_accuracy=60.9300% global_hash=e1ee0a349eae30f0bb03c7f3dfca6ee51e846c19c982b66bb25cea67c6402ee3
+ROUND fedrad-warmup round=110 clients=[39, 44, 62, 4, 42, 25, 0, 45, 29, 93] diagnostic_accuracy=67.8100% global_hash=feec227e7515a584f5c2a53fd1bee7b10716c38d233912001038dc8452feecd6
+ROUND fedrad-warmup round=111 clients=[96, 54, 19, 97, 92, 31, 81, 2, 24, 9] diagnostic_accuracy=70.2600% global_hash=e7f43d2c7a2474ee06ea8f5824af19bbfad88cbb155e897d2849bb254fa57352
+ROUND fedrad-warmup round=112 clients=[9, 19, 7, 49, 45, 35, 80, 85, 40, 89] diagnostic_accuracy=67.5100% global_hash=ce157ddca27b9b10671fd1c9ea89dc7824a3d528e34eeca19e2102b87a39ebae
+ROUND fedrad-warmup round=113 clients=[73, 66, 18, 74, 33, 2, 87, 29, 98, 91] diagnostic_accuracy=62.8300% global_hash=98f78d4f27325c84a6da5f41474f05d85d7881aebef380f61947745d77af10b2
+ROUND fedrad-warmup round=114 clients=[40, 31, 27, 50, 71, 81, 99, 97, 73, 49] diagnostic_accuracy=58.2000% global_hash=e330c01c553867062972d0205c415e3e93703af39ff32c4d8ee35540b0dfe247
+ROUND fedrad-warmup round=115 clients=[61, 64, 42, 88, 27, 95, 92, 50, 45, 85] diagnostic_accuracy=66.4400% global_hash=826ae2aab32fd2069ce709c0eb198add9423dd31a4043209003f38b66c67e98a
+ROUND fedrad-warmup round=116 clients=[27, 8, 49, 32, 15, 35, 70, 59, 31, 30] diagnostic_accuracy=58.4600% global_hash=0258eb1969d8112cee096a0afddd9d522e5b2e0c6be264b6e84d343eb00ab8f3
+ROUND fedrad-warmup round=117 clients=[69, 35, 52, 51, 26, 15, 76, 48, 98, 12] diagnostic_accuracy=64.2600% global_hash=3261c8dfc583009f17b6e0a8bd2383b7bc4ddadf892d70bb31697aa37c332af3
+ROUND fedrad-warmup round=118 clients=[46, 57, 0, 86, 26, 80, 73, 20, 63, 98] diagnostic_accuracy=62.8800% global_hash=81683c4546fabe1acbc1a3baa267e09a0a938ebf619bf01088eb5a7dda157c4c
+ROUND fedrad-warmup round=119 clients=[81, 6, 64, 84, 20, 2, 8, 4, 66, 92] diagnostic_accuracy=61.5400% global_hash=256b136459a94eceb3f30f78b0552d2f823fb8c0d44be9aec5adf150693a9ac8
+ROUND fedrad-warmup round=120 clients=[61, 34, 64, 11, 96, 18, 82, 52, 72, 92] diagnostic_accuracy=65.5000% global_hash=a2dbcb53363ef17117363cda746924ed84e1095ea43e52af9bc1b11bd4aec091
+ROUND fedrad-warmup round=121 clients=[93, 68, 94, 13, 36, 11, 5, 1, 40, 7] diagnostic_accuracy=68.5800% global_hash=833809e8a74a8adddba7bc25231cc07fe1f79fa1ab434e0a176f8ab523e0aba4
+ROUND fedrad-warmup round=122 clients=[73, 64, 37, 69, 31, 48, 77, 41, 53, 75] diagnostic_accuracy=60.3300% global_hash=9c6445f113b73e011fec3e2ad3b40cb831750cd167675c54c7a77fe3e431bae6
+ROUND fedrad-warmup round=123 clients=[46, 43, 84, 11, 66, 92, 16, 19, 96, 37] diagnostic_accuracy=56.2400% global_hash=dc3f8f0cecab2c7ab4bb02fb4c53f90773c83260700b1d008fec20bd9c53e666
+ROUND fedrad-warmup round=124 clients=[43, 96, 9, 0, 74, 19, 1, 23, 38, 66] diagnostic_accuracy=64.5000% global_hash=048ce6177b937f69d2ab382c4b271387a8b56f88b936db1a2a21f525b77f1dc9
+ROUND fedrad-warmup round=125 clients=[27, 62, 32, 10, 22, 72, 64, 25, 86, 60] diagnostic_accuracy=61.7000% global_hash=ddeb7c65506aaa86fe4bf058c51295b722ee2572a1f4d0ac7ab6e8c55b23377b
+ROUND fedrad-warmup round=126 clients=[84, 7, 64, 76, 15, 46, 27, 47, 40, 69] diagnostic_accuracy=64.5000% global_hash=ae2fa92842ac8a68d7388cda3e96646c98c39221ff7a914e806a2e05333b3873
+ROUND fedrad-warmup round=127 clients=[75, 97, 79, 87, 11, 7, 37, 92, 41, 12] diagnostic_accuracy=64.8200% global_hash=4d03a2a7610b5d77dc5754edb06c5e87d81bae1efd8dec84a1801d289b9eacd4
+ROUND fedrad-warmup round=128 clients=[78, 4, 17, 21, 76, 74, 19, 61, 45, 86] diagnostic_accuracy=71.3600% global_hash=d86689238191dd41c17ccdf3c97b668742c33059d7e26d485b1b51de441043f9
+ROUND fedrad-warmup round=129 clients=[23, 41, 75, 36, 26, 49, 95, 16, 93, 72] diagnostic_accuracy=58.2800% global_hash=7440fa4d42ecc58b505683a6b2a975ca382e3c234b2e0b990f135371a49d6417
+ROUND fedrad-warmup round=130 clients=[59, 53, 65, 8, 68, 35, 13, 55, 23, 97] diagnostic_accuracy=68.2300% global_hash=38b9e1ebc7d0dbfdec0e658f33ca16d41536c8991f15e083e4adf76fd5e4f369
+ROUND fedrad-warmup round=131 clients=[74, 98, 22, 45, 97, 87, 92, 71, 47, 79] diagnostic_accuracy=68.2300% global_hash=b4885d9bfc0692a90f4a6db7bb435bf0bb25738bf8e2ac24feacbb1070271529
+ROUND fedrad-warmup round=132 clients=[35, 70, 59, 49, 36, 91, 82, 50, 26, 72] diagnostic_accuracy=51.7000% global_hash=184dc336ebabec365695ecc38dfb453cc030f584fe64e00c79b27f13681a9c1a
+ROUND fedrad-warmup round=133 clients=[22, 83, 75, 29, 66, 48, 12, 10, 86, 1] diagnostic_accuracy=63.9700% global_hash=ac59e508581e91f88908ba0f215dc7de2aaabe3c224a9ca11877f26805b65b4c
+ROUND fedrad-warmup round=134 clients=[76, 33, 40, 59, 65, 63, 73, 36, 99, 82] diagnostic_accuracy=68.0300% global_hash=97d507475ec3d5a55821953132aee758c4c2569134a2f1d40e760eb000ffa8e0
+ROUND fedrad-warmup round=135 clients=[85, 88, 54, 40, 70, 67, 86, 38, 58, 42] diagnostic_accuracy=72.2100% global_hash=7ff1daefa03301d16ed46e5903210a3ab38cf80d0c8977a27416e2e6073219c8
+ROUND fedrad-warmup round=136 clients=[89, 56, 12, 90, 94, 86, 19, 78, 92, 59] diagnostic_accuracy=69.2200% global_hash=484536233ca46b39fdc20bfd1ae6d4ee2802048ddf751b33b3f39c73e121d0cd
+ROUND fedrad-warmup round=137 clients=[7, 94, 69, 44, 50, 26, 75, 24, 33, 18] diagnostic_accuracy=62.6300% global_hash=9ccd0db402811620b1ae1475ee9f600376cd274bf4bfc8deb0f0dc38cc6ca7fa
+ROUND fedrad-warmup round=138 clients=[89, 75, 84, 93, 35, 71, 19, 63, 59, 94] diagnostic_accuracy=61.6400% global_hash=d868a15adb44ed4f4a33324f7e6f6162c19d8f0ecc5a36d773c85442f11d7a74
+ROUND fedrad-warmup round=139 clients=[54, 66, 17, 43, 53, 40, 76, 1, 4, 81] diagnostic_accuracy=71.0300% global_hash=e013d27eee344aff0aff99aca4b76b716d677d9e84b0b5419c28a0214425bd03
+ROUND fedrad-warmup round=140 clients=[52, 51, 97, 7, 41, 61, 29, 88, 49, 26] diagnostic_accuracy=67.8400% global_hash=a375f6cfcf227b99cd87e0848cf3514296e1d521869ac48e4e62c4a0c6abeab4
+ROUND fedrad-warmup round=141 clients=[21, 47, 20, 59, 85, 2, 99, 70, 54, 50] diagnostic_accuracy=66.7700% global_hash=480d40e3f1f493985342f937f2cf27cfe7e0788af540dbab032296886e2cca71
+ROUND fedrad-warmup round=142 clients=[65, 98, 79, 6, 58, 92, 19, 37, 33, 75] diagnostic_accuracy=67.7600% global_hash=44faf45dfb18328bb6bf53bc0eabb96cff3f9bba5f30ca7d87e28bd7055a6e61
+ROUND fedrad-warmup round=143 clients=[44, 84, 56, 0, 69, 15, 66, 78, 42, 95] diagnostic_accuracy=59.3200% global_hash=6b8e4d9194fef18fe9e1e58a1e85f5533441df1b0b4d3fed7e39418846facb37
+ROUND fedrad-warmup round=144 clients=[36, 20, 53, 26, 80, 67, 25, 37, 39, 10] diagnostic_accuracy=63.2600% global_hash=9652dd699abd968a8b3f0b4e7b551f68eec999bbed6b6bcedf6ba5a90b719414
+ROUND fedrad-warmup round=145 clients=[54, 62, 65, 69, 82, 46, 64, 70, 59, 11] diagnostic_accuracy=69.3100% global_hash=d1b246f57cbe314216ab812f02c1baf2dda4e41f5631d221fae6879dbf7acbf0
+ROUND fedrad-warmup round=146 clients=[78, 89, 64, 25, 85, 9, 57, 41, 97, 45] diagnostic_accuracy=67.9200% global_hash=106b6cef5f223303b5a659c4c84e26a4420052fc05c86e2ed89996e62cca4cec
+ROUND fedrad-warmup round=147 clients=[32, 8, 70, 41, 12, 19, 88, 20, 98, 33] diagnostic_accuracy=58.6000% global_hash=64c655a2474d221d69401a19dbcb8b736ab973a43fb5ba3d4066cd2d0b16c011
+ROUND fedrad-warmup round=148 clients=[50, 29, 81, 33, 44, 69, 2, 68, 93, 85] diagnostic_accuracy=68.4500% global_hash=9eb90e52d2facc3476d3b4b4a84f6034e1122a38f18e87580bf743af323e6689
+ROUND fedrad-warmup round=149 clients=[5, 84, 70, 73, 31, 62, 69, 13, 86, 74] diagnostic_accuracy=50.5700% global_hash=de69db2aef3e033095abb17891441cf63092b6bd0e9c85dbf35c71958ad49dd6
+ROUND fedrad-warmup round=150 clients=[69, 9, 41, 83, 76, 63, 34, 67, 36, 87] diagnostic_accuracy=66.1600% global_hash=6083fe6759108cc51da7596aff6f1518a69089e03aa6085c3d7f91e65cb3fd2b
+ROUND fedrad-warmup round=151 clients=[40, 77, 95, 52, 25, 38, 46, 47, 93, 88] diagnostic_accuracy=60.4000% global_hash=1117eb3283d915d1e5c9a27b519984382c5fa5d194e94a2cbe44595dfade1a00
+ROUND fedrad-warmup round=152 clients=[14, 22, 87, 6, 15, 36, 37, 44, 48, 38] diagnostic_accuracy=62.7600% global_hash=a185f22ab26bdbadacf254bc1fcbfcd259185524f291ef8eec2d9503329c5466
+ROUND fedrad-warmup round=153 clients=[14, 66, 74, 62, 49, 45, 18, 79, 15, 68] diagnostic_accuracy=70.9800% global_hash=d4cee5c5d5c064b6171729656fe4d4bf1350c9b59f2cd361ffe64a2ce651cf5c
+ROUND fedrad-warmup round=154 clients=[92, 32, 77, 87, 27, 13, 14, 47, 22, 73] diagnostic_accuracy=62.0500% global_hash=04e79d42fdcb06829a45578a45ca80b34183abbc738f40f67c63a77d261304a8
+ROUND fedrad-warmup round=155 clients=[60, 31, 44, 3, 84, 25, 98, 73, 52, 82] diagnostic_accuracy=45.7600% global_hash=fc65264df16d5c785904808a61095729aa1c0f614109c91b19e4d2074067a370
+ROUND fedrad-warmup round=156 clients=[66, 38, 74, 49, 46, 45, 12, 0, 81, 23] diagnostic_accuracy=63.8900% global_hash=023f61ad83263a4ee147a5daa75380d67fae57ff34a0d767cab45097937c2026
+ROUND fedrad-warmup round=157 clients=[6, 14, 56, 8, 37, 71, 68, 53, 88, 65] diagnostic_accuracy=68.5700% global_hash=87c09336a08679539722d4c6475969f781581f1f6f1c58f2d73596430a2c5da6
+ROUND fedrad-warmup round=158 clients=[76, 40, 68, 38, 91, 92, 18, 11, 69, 94] diagnostic_accuracy=71.4100% global_hash=d4b5bce903cdf7977d3666717975c56b331a8fd0d9665697d8b09c789eb2e8d5
+ROUND fedrad-warmup round=159 clients=[0, 23, 91, 83, 98, 64, 90, 32, 84, 36] diagnostic_accuracy=61.7100% global_hash=826dff41254226c2c28a6299d952b6cd64ddf04a6c173b6a9c8500f73ae61ce9
+ROUND fedrad-warmup round=160 clients=[15, 9, 95, 71, 80, 49, 39, 81, 30, 8] diagnostic_accuracy=66.1500% global_hash=25d56ff35e5487f5af00cfe26e0b5f5bff5b38f8816825fbbff784dcce04e66f
+ROUND fedrad round=161 clients=[29, 87, 67, 36, 35, 96, 15, 61, 24, 62] diagnostic_accuracy=61.7300% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=14d21486d90dfc2dfc642e8aab630c3dcbf7f919a8270c3c35b1efad893b8853
+ROUND fedrad round=162 clients=[13, 58, 87, 52, 50, 60, 3, 19, 35, 0] diagnostic_accuracy=63.6300% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=0ac5ef5b60bee4b348147370c94671c7d8fee3a8356ac3ef1900fd3e06311ee3
+ROUND fedrad round=163 clients=[55, 46, 66, 67, 73, 12, 51, 1, 57, 90] diagnostic_accuracy=69.9200% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=9a93375135fb5fdd946bd0f392f271fb8a0bad85e7fae6c7100106242b893fe2
+ROUND fedrad round=164 clients=[40, 72, 92, 86, 89, 90, 16, 98, 73, 58] diagnostic_accuracy=73.0200% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=e72fdfe5b2eedb5581e7ac16a4dbac1c43ec883cf0006220f1c2d2fedcadec73
+ROUND fedrad round=165 clients=[0, 58, 47, 44, 94, 66, 4, 7, 27, 2] diagnostic_accuracy=67.4700% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=99c2b3360efa2f1f7c8344f08c934733766b95b34460b64eec61329d6058307c
+ROUND fedrad round=166 clients=[58, 87, 14, 78, 40, 83, 73, 18, 52, 31] diagnostic_accuracy=67.1700% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=ff01dbfea85661d28f751106b35c24d1d9f440e8a582f2c2f19df132fc69e30a
+ROUND fedrad round=167 clients=[99, 22, 62, 86, 5, 20, 9, 51, 7, 54] diagnostic_accuracy=69.4500% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=ecee17a5ab50958023042e205e3f14f06c0619d81a4b63bb80915b82cb884566
+ROUND fedrad round=168 clients=[97, 37, 42, 7, 22, 5, 24, 56, 69, 12] diagnostic_accuracy=69.2400% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=7b4a5b5d183a5d8752924e6c1e973f12e402d68a2179200274e21d226060be57
+ROUND fedrad round=169 clients=[96, 22, 76, 44, 59, 78, 12, 68, 94, 87] diagnostic_accuracy=69.1800% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=ba578ec3deaf25e1f80e650fedf627f921d2c7f9ad2851ceac58bdde50a4c859
+ROUND fedrad round=170 clients=[45, 7, 65, 19, 95, 16, 35, 23, 83, 88] diagnostic_accuracy=69.3500% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=23133861de5021c04fa267dcbfb214946ffc8c3a4633d47de2c2ac64aeea7050
+ROUND fedrad round=171 clients=[12, 91, 4, 90, 47, 66, 33, 9, 61, 84] diagnostic_accuracy=68.9000% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=70cd5f5fde108ebe3cc8c72eb5635514b1ab88af62da6f1e405bae182f5e2e2b
+ROUND fedrad round=172 clients=[46, 60, 83, 2, 37, 70, 93, 29, 3, 43] diagnostic_accuracy=54.6600% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=0aca0db84a6613e414d9197506f0f42f03e7c2017a4d458967d9350ad490ec97
+ROUND fedrad round=173 clients=[27, 45, 49, 4, 31, 62, 9, 95, 69, 72] diagnostic_accuracy=66.9700% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=8f693696b3a6e4d9ac69f53b79aff5262f8a2590ef4ba0a14ad25bb6c867b803
+ROUND fedrad round=174 clients=[27, 28, 1, 92, 55, 48, 74, 7, 99, 62] diagnostic_accuracy=66.7800% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=03c9c5f612fbd0acc0429ba00187761473dff61892a699eff496bffd830ae7d2
+ROUND fedrad round=175 clients=[24, 0, 9, 11, 31, 45, 58, 35, 69, 21] diagnostic_accuracy=73.5400% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=9d6ef7861bec6dfab372622b29068be054e957f2c3883bcc3d943404247865ba
+ROUND fedrad round=176 clients=[42, 98, 67, 21, 24, 81, 20, 75, 29, 36] diagnostic_accuracy=68.3200% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=5561770a8297abb6a92ddfcfae323faaacd77125a1c1df4dae80c1960ed18158
+ROUND fedrad round=177 clients=[49, 75, 33, 60, 42, 64, 69, 11, 47, 70] diagnostic_accuracy=62.8500% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=d113c814ac037af52b1705467030622a15170687165eb0858276681f1401f283
+ROUND fedrad round=178 clients=[96, 60, 16, 70, 73, 40, 11, 24, 87, 93] diagnostic_accuracy=66.6600% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=924bf0d425b4c2f3a5ac25748e4c80ecac7ee10dc32744d9ba4696438cdeaf90
+ROUND fedrad round=179 clients=[37, 16, 85, 31, 69, 36, 54, 25, 32, 38] diagnostic_accuracy=68.5300% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=774c40861559107d8815059bda6b83a9bd19de185f7be5c7a71227ff72f0be60
+ROUND fedrad round=180 clients=[80, 92, 61, 76, 19, 28, 7, 73, 67, 38] diagnostic_accuracy=70.5900% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=09ece85a4c438739edc0722d579d4fbaf719820da16d907e25326a986e557498
+ROUND fedrad round=181 clients=[78, 26, 35, 44, 29, 85, 64, 66, 97, 21] diagnostic_accuracy=65.8900% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=f20c788dc95e9d950f5733e7a75b7aad6800007a4bf0416a1b55a36f666072d7
+ROUND fedrad round=182 clients=[78, 73, 10, 52, 54, 24, 44, 70, 99, 90] diagnostic_accuracy=65.5400% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=92eea2830c3891733618e5637b1f45e730ce654c3d9829b9203a9e561da90e92
+ROUND fedrad round=183 clients=[96, 38, 1, 4, 36, 19, 77, 52, 41, 49] diagnostic_accuracy=70.9000% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=d1a91fb793ff6abd5fb3c3c2f61c13bb0c42dfae86f3ff1131f7eb9984161e7c
+ROUND fedrad round=184 clients=[87, 55, 49, 7, 51, 67, 40, 21, 34, 0] diagnostic_accuracy=73.5200% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=e6096433e4777ec8424d789fd9f780f2816a60ffadecc492cf90b00da5f2ff92
+ROUND fedrad round=185 clients=[74, 63, 39, 14, 96, 82, 21, 45, 88, 13] diagnostic_accuracy=69.3700% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=f7b1e9bdd1c9290aa671a26602acf25d5b22af1c8a1f845d87cc6644c67ca489
+ROUND fedrad round=186 clients=[1, 26, 23, 59, 22, 57, 27, 60, 18, 69] diagnostic_accuracy=65.2500% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=5791f49627cbf56f818738239ad0ecafcbabf00d4f5ebb0cba51512c0d3b4af5
+ROUND fedrad round=187 clients=[34, 87, 43, 64, 27, 92, 78, 55, 68, 7] diagnostic_accuracy=69.8300% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=b52dc8cd58b181ec26ba2e0b1e6b83a9ab92b245953538eb584b2218696e59b0
+ROUND fedrad round=188 clients=[67, 20, 34, 69, 85, 14, 86, 81, 36, 76] diagnostic_accuracy=72.9700% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=f41b515ea10e3777d42e33a88872e5e2c51d49ce57b7db260a9bb91b53a14d96
+ROUND fedrad round=189 clients=[57, 7, 53, 49, 74, 65, 76, 29, 78, 80] diagnostic_accuracy=71.6200% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=0e8c5e78246b18cd7175ef46d821224c6e9b58648d5f89d8757aea78061df0d7
+ROUND fedrad round=190 clients=[71, 25, 7, 77, 39, 51, 87, 5, 45, 11] diagnostic_accuracy=67.2900% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=f3304b92774f0841c0a8c4dc8914706023769bc49f350735f1ad908a42b7bc4b
+ROUND fedrad round=191 clients=[60, 21, 34, 0, 98, 92, 44, 65, 66, 3] diagnostic_accuracy=63.6800% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=5086a1af724275c338e463951d7766312a1243d42dde7a66075933dcf03e5cee
+ROUND fedrad round=192 clients=[36, 59, 66, 20, 0, 16, 86, 71, 90, 56] diagnostic_accuracy=74.0000% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=e8ac48ddba879fd76517627c1b26f289315d9dd335a61bbd41ede3e728749407
+ROUND fedrad round=193 clients=[19, 22, 51, 45, 91, 26, 14, 83, 15, 67] diagnostic_accuracy=72.1400% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=744404c0b1fc267731d4cf5f42dae7bedde6bb2aa4e0fda8edf8a2217f1a479c
+ROUND fedrad round=194 clients=[62, 14, 3, 92, 78, 33, 89, 48, 70, 31] diagnostic_accuracy=66.6600% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=c10dae0d3dd8c9c83d57629ba3c7ec76026e701af7bf7ddb3799503174b765b8
+ROUND fedrad round=195 clients=[37, 10, 88, 63, 53, 68, 2, 52, 26, 59] diagnostic_accuracy=66.6500% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=b405fc2a8f23b41e11c0626f79455c0d26b293256d2e43c91150a27b7289e582
+ROUND fedrad round=196 clients=[59, 71, 85, 49, 20, 10, 3, 86, 88, 33] diagnostic_accuracy=61.8000% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=4b2c5d6e689161372a24026e6a62a6a814d9d308c3a65331db3b0bb31cfd915d
+ROUND fedrad round=197 clients=[9, 0, 18, 66, 44, 17, 92, 95, 64, 96] diagnostic_accuracy=67.5800% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=1f96fc399c95d051b0fba2db8424531092be02ec72bda8db0cbcef4fa9f94923
+ROUND fedrad round=198 clients=[70, 58, 24, 57, 32, 19, 43, 65, 5, 88] diagnostic_accuracy=59.1200% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=1e22f3504f7195fce08d710186f99eb36602b0c8829e955e3ae522e29f3d603c
+ROUND fedrad round=199 clients=[61, 75, 68, 2, 6, 26, 1, 56, 78, 74] diagnostic_accuracy=68.6800% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=1e8f74145a1644ad40afe260e1a8a50d2328fe6ee0df54f6f929d78c50566365
+ROUND fedrad round=200 clients=[8, 57, 22, 90, 46, 9, 56, 99, 89, 4] diagnostic_accuracy=72.3700% Gamma=0.000000 gate_passed=True fallback=functional_recovery_hungarian global_hash=f440ac536e0cad439240966a8a1a803bf703c1ac525f9e5ccdd79a58b90407f1
+FINAL_STATE_HASH f440ac536e0cad439240966a8a1a803bf703c1ac525f9e5ccdd79a58b90407f1

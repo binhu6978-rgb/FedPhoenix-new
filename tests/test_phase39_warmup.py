@@ -91,6 +91,65 @@ class Phase39WarmupTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "warmup_reference_rounds_path"):
             config.validate()
 
+    def test_delayed_functional_recovery_activates_only_at_configured_round(self):
+        base = tiny_config(
+            rounds=2,
+            probe_support_size=3,
+            probe_query_size=3,
+            verify_task_replay=False,
+        )
+        data = tiny_data()
+        template = initialized_tiny_model(base.seed)
+        clean = CleanFedPhoenixTrainer(
+            config=base,
+            data=data,
+            model_template=template,
+            rngs=RNGStreams(base.seed),
+            device=torch.device("cpu"),
+        ).run()
+
+        with tempfile.TemporaryDirectory() as directory:
+            reference_path = Path(directory) / "rounds.jsonl"
+            with reference_path.open("w", encoding="utf-8") as handle:
+                for trace in clean.traces:
+                    handle.write(
+                        json.dumps(
+                            {
+                                "round_number": trace.round_idx + 1,
+                                "selected_clients": list(trace.selected_clients),
+                                "assignments": [list(pair) for pair in trace.assignments],
+                                "task_seeds": list(trace.task_seeds),
+                                "task_hashes": list(trace.task_hashes),
+                                "local_seeds": list(trace.local_seeds),
+                                "global_state_hash": trace.global_state_hash,
+                            }
+                        )
+                        + "\n"
+                    )
+            delayed = replace(
+                base,
+                matching_start_round=2,
+                score_mode="functional",
+                warmup_reference_rounds_path=reference_path,
+            )
+            delayed.validate()
+            result = FedRADTrainer(
+                config=delayed,
+                data=data,
+                model_template=template,
+                rngs=RNGStreams(delayed.seed),
+                device=torch.device("cpu"),
+            ).run()
+
+        self.assertEqual(result.traces[0].global_state_hash, clean.traces[0].global_state_hash)
+        self.assertEqual(result.traces[0].fallback_reason, "matching_inactive")
+        self.assertEqual(result.traces[0].probe_seconds, 0.0)
+        self.assertEqual(
+            result.traces[1].fallback_reason,
+            "functional_recovery_hungarian",
+        )
+        self.assertTrue(result.traces[1].probe_support_hashes)
+
 
 if __name__ == "__main__":
     unittest.main()
