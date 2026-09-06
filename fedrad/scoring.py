@@ -129,3 +129,64 @@ def build_score_matrices(
         Q=Q,
         component_degenerate=tuple(degenerate),
     )
+
+
+def mean_score_matrices(
+    matrices: Sequence[ScoreMatrices], *, config: FedRADConfig
+) -> ScoreMatrices:
+    """Average independent Probe matrices without changing their alignment."""
+    if not matrices:
+        raise ValueError("At least one score matrix is required")
+    first = matrices[0]
+    for matrix in matrices[1:]:
+        if (
+            matrix.client_order != first.client_order
+            or matrix.task_order != first.task_order
+        ):
+            raise ValueError("Replicate score matrices have different alignment")
+
+    components = {
+        name: np.mean(
+            np.stack([getattr(matrix, name) for matrix in matrices], axis=0),
+            axis=0,
+        )
+        for name in ("G", "A", "D", "C")
+    }
+    normalized: dict[str, np.ndarray] = {}
+    degenerate: list[bool] = []
+    for name in ("G", "A", "D", "C"):
+        normalized[name], flag = matrix_zscore(
+            components[name],
+            z_eps=config.z_eps,
+            std_atol=config.std_atol,
+            std_rtol=config.std_rtol,
+        )
+        degenerate.append(flag)
+
+    if config.score_mode == "functional":
+        Q = components["G"].copy()
+    elif config.score_mode == "g_only":
+        Q = normalized["G"].copy()
+    else:
+        Q = (
+            config.lambda_G * normalized["G"]
+            + config.lambda_A * normalized["A"]
+            - config.lambda_D * normalized["D"]
+            + config.lambda_C * normalized["C"]
+        )
+    if not np.isfinite(Q).all():
+        raise ValueError("Mean Probe score contains NaN or Inf")
+    return ScoreMatrices(
+        client_order=first.client_order,
+        task_order=first.task_order,
+        G=components["G"],
+        A=components["A"],
+        D=components["D"],
+        C=components["C"],
+        ZG=normalized["G"],
+        ZA=normalized["A"],
+        ZD=normalized["D"],
+        ZC=normalized["C"],
+        Q=Q,
+        component_degenerate=tuple(degenerate),
+    )

@@ -30,6 +30,29 @@ def assign_functional_recovery(
     return AssignmentDecision(baseline, chosen, chosen, float(sum(x.score for x in chosen)), float(sum(x.score for x in baseline)), 0.0, 0.0, True, False, "functional_recovery_hungarian")
 
 
+def best_vs_second_assignment_margin(Q: np.ndarray) -> float:
+    """Return the objective gap between the best and second-best bijections."""
+    value = np.asarray(Q, dtype=np.float64)
+    if value.ndim != 2 or value.shape[0] != value.shape[1] or not value.size:
+        raise ValueError("assignment margin requires a non-empty square matrix")
+    if not np.isfinite(value).all():
+        raise ValueError("assignment margin received NaN or Inf")
+    if value.shape[0] == 1:
+        return 0.0
+    rows, columns = linear_sum_assignment(-value)
+    best = float(value[rows, columns].sum())
+    alternatives: list[float] = []
+    for row, column in zip(rows.tolist(), columns.tolist()):
+        cost = -value.copy()
+        cost[row, column] = np.inf
+        alt_rows, alt_columns = linear_sum_assignment(cost)
+        alternatives.append(float(value[alt_rows, alt_columns].sum()))
+    margin = best - max(alternatives)
+    if not math.isfinite(margin) or margin < -1e-10:
+        raise RuntimeError("invalid best-vs-second assignment margin")
+    return max(0.0, float(margin))
+
+
 def _validate_bijection(
     pairs: tuple[AssignmentPair, ...], *, expected_size: int
 ) -> None:

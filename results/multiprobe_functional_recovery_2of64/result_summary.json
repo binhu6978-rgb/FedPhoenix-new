@@ -1,0 +1,79 @@
+{
+  "experiment": "Multi-Probe Functional Recovery",
+  "setting": "CIFAR-10 ResNet18 beta=0.3 seed=1 200 rounds faithful FedPhoenix reset_ratio=2/64",
+  "references": {
+    "clean": {
+      "M": null,
+      "peak": 73.7,
+      "peak_round": 175,
+      "final": 72.29,
+      "last20": 67.316,
+      "last50": 66.701
+    },
+    "full_ours": {
+      "M": 1,
+      "peak": 74.01,
+      "peak_round": 192,
+      "final": 70.94,
+      "last20": 68.36,
+      "last50": 67.6298
+    }
+  },
+  "variants": [
+    {
+      "M": 2,
+      "peak": 74.34,
+      "peak_round": 164,
+      "delta_clean_pp": 0.64,
+      "delta_m1_pp": 0.33,
+      "final": 72.66,
+      "last20": 68.939,
+      "last50": 67.7072,
+      "mean_score_variance": 0.01795195734770303,
+      "mean_pairwise_score_std": 0.10236503999303097,
+      "mean_pairwise_score_standard_error": 0.07238301393550431,
+      "mean_replicate_assignment_overlap": 0.6555,
+      "mean_assignment_change_rate": 0.9025,
+      "mean_assignment_margin": 0.016371931498870253,
+      "mean_assignment_overlap_with_m1": 0.269
+    },
+    {
+      "M": 3,
+      "peak": 73.92,
+      "peak_round": 192,
+      "delta_clean_pp": 0.22,
+      "delta_m1_pp": -0.09,
+      "final": 71.64,
+      "last20": 67.9005,
+      "last50": 67.5126,
+      "mean_score_variance": 0.023785232055626195,
+      "mean_pairwise_score_std": 0.1313363498680819,
+      "mean_pairwise_score_standard_error": 0.07582707695071995,
+      "mean_replicate_assignment_overlap": 0.6025,
+      "mean_assignment_change_rate": 0.899,
+      "mean_assignment_margin": 0.01606715544747797,
+      "mean_assignment_overlap_with_m1": 0.2985
+    },
+    {
+      "M": 5,
+      "peak": 74.26,
+      "peak_round": 164,
+      "delta_clean_pp": 0.56,
+      "delta_m1_pp": 0.25,
+      "final": 71.89,
+      "last20": 68.79,
+      "last50": 67.7102,
+      "mean_score_variance": 0.027523209377123013,
+      "mean_pairwise_score_std": 0.14993392838761355,
+      "mean_pairwise_score_standard_error": 0.06705249120165786,
+      "mean_replicate_assignment_overlap": 0.5827,
+      "mean_assignment_change_rate": 0.9055,
+      "mean_assignment_margin": 0.015943839788436946,
+      "mean_assignment_overlap_with_m1": 0.2665
+    }
+  ],
+  "best_variant": "M=2",
+  "best_peak": 74.34,
+  "beats_m1": true,
+  "conclusion": "A second independent Probe improves peak by 0.33 pp over M=1. More replicates are not monotonically better; retain M=2 and stop the replicate-count sweep."
+}

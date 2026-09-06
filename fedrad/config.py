@@ -52,6 +52,9 @@ class FedRADConfig:
     probe_query_size: int = 32
     probe_steps: int = 1
     probe_learning_rate: float = 0.01
+    # Number of independent Functional Recovery estimates averaged before
+    # Hungarian assignment.  One exactly preserves the accepted Ours path.
+    functional_probe_replicates: int = 1
 
     # Development scoring defaults, not final calibrated values.
     lambda_G: float = 1.0
@@ -126,6 +129,8 @@ class FedRADConfig:
             raise ValueError("probe support/query sizes must be positive")
         if self.probe_steps < 1 or self.probe_learning_rate <= 0:
             raise ValueError("probe steps and learning rate must be positive")
+        if self.functional_probe_replicates < 1:
+            raise ValueError("functional_probe_replicates must be positive")
         if not math.isclose(
             self.probe_learning_rate,
             self.learning_rate,
@@ -145,6 +150,10 @@ class FedRADConfig:
             raise ValueError("matching_start_round must lie in [1, rounds + 1]")
         if self.score_mode not in {"full", "g_only", "functional"}:
             raise ValueError("score_mode must be full, g_only, or functional")
+        if self.functional_probe_replicates > 1 and self.score_mode != "functional":
+            raise ValueError(
+                "multiple functional probes require score_mode=functional"
+            )
         if self.matching_start_round > 1:
             if self.warmup_reference_rounds_path is None:
                 raise ValueError(

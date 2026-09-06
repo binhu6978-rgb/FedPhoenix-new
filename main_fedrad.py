@@ -70,6 +70,12 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="override development query size; historical value is 32",
     )
+    parser.add_argument(
+        "--functional-probe-replicates",
+        type=int,
+        default=1,
+        help="independent raw-G probes averaged before Functional Recovery assignment",
+    )
     parser.add_argument("--rounds", type=int, default=1200)
     parser.add_argument(
         "--reset-ratio",
@@ -170,6 +176,7 @@ def main() -> int:
         ),
         diagnostic_probe_replicates=cli.diagnostic_probe_replicates,
         diagnostic_save_checkpoints=cli.diagnostic_save_checkpoints,
+        functional_probe_replicates=cli.functional_probe_replicates,
         probe_support_size=(
             defaults.probe_support_size
             if cli.probe_support_size is None

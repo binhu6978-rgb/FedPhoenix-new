@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import copy
-from dataclasses import replace
 import json
 import time
 from typing import Sequence
@@ -11,7 +10,11 @@ import torch
 from torch import nn
 
 from fedrad.aggregation import weighted_fedavg
-from fedrad.assignment import assign_functional_recovery, assign_with_gate
+from fedrad.assignment import (
+    assign_functional_recovery,
+    assign_with_gate,
+    best_vs_second_assignment_margin,
+)
 from fedrad.config import FedRADConfig
 from fedrad.data import FederatedData
 from fedrad.evaluation import Evaluator
@@ -21,6 +24,7 @@ from fedrad.probe import ProbeRunner, materialize_probe_batch
 from fedrad.rng import RNGStreams
 from fedrad.task_bank import TaskBank, build_task_bank
 from fedrad.types import (
+    AssignmentDecision,
     FedRADRoundTrace,
     ProbeBatch,
     ProbeResult,
@@ -29,7 +33,71 @@ from fedrad.types import (
     clone_state_dict,
     state_dict_hash,
 )
-from fedrad.scoring import build_score_matrices
+from fedrad.scoring import ScoreMatrices, build_score_matrices, mean_score_matrices
+
+
+def _functional_replicate_diagnostics(
+    replicate_scores: Sequence[ScoreMatrices],
+    *,
+    decision: AssignmentDecision,
+    z_eps: float,
+) -> dict[str, object]:
+    raw = np.stack([score.G for score in replicate_scores], axis=0)
+    means = np.mean(raw, axis=0)
+    variances = np.var(raw, axis=0, ddof=0)
+    standard_deviations = np.sqrt(variances)
+    valid_cv = np.abs(means) > float(z_eps)
+    replicate_assignments = [
+        assign_functional_recovery(
+            client_order=score.client_order,
+            task_order=score.task_order,
+            Q=score.G,
+        )
+        for score in replicate_scores
+    ]
+    final_edges = {
+        (pair.client_id, pair.task_id) for pair in decision.final_pairs
+    }
+    overlaps = [
+        len(
+            final_edges.intersection(
+                (pair.client_id, pair.task_id)
+                for pair in replicate.final_pairs
+            )
+        )
+        / len(final_edges)
+        for replicate in replicate_assignments
+    ]
+    baseline_by_client = {
+        pair.client_id: pair.task_id for pair in decision.baseline_pairs
+    }
+    changed = sum(
+        baseline_by_client[pair.client_id] != pair.task_id
+        for pair in decision.final_pairs
+    )
+    return {
+        "functional_probe_replicates": len(replicate_scores),
+        "mean_score_variance_across_replicates": float(np.mean(variances)),
+        "mean_pairwise_score_std": float(np.mean(standard_deviations)),
+        "max_pairwise_score_std": float(np.max(standard_deviations)),
+        "mean_pairwise_score_standard_error": float(
+            np.mean(standard_deviations) / np.sqrt(len(replicate_scores))
+        ),
+        "mean_coefficient_of_variation": (
+            float(np.mean(standard_deviations[valid_cv] / np.abs(means[valid_cv])))
+            if np.any(valid_cv)
+            else None
+        ),
+        "coefficient_of_variation_valid_pairs": int(np.sum(valid_cv)),
+        "mean_replicate_assignment_overlap": float(np.mean(overlaps)),
+        "replicate_hungarian_assignments": [
+            [[pair.client_id, pair.task_id] for pair in replicate.final_pairs]
+            for replicate in replicate_assignments
+        ],
+        "assignment_change_rate": float(changed / len(final_edges)),
+        "assignment_objective": float(decision.hungarian_score),
+        "assignment_margin": best_vs_second_assignment_margin(means),
+    }
 
 
 def baseline_assignments(
@@ -448,6 +516,7 @@ class FedRADTrainer:
         global_state = clone_state_dict(self.model_template.state_dict())
         initial_hash = state_dict_hash(global_state)
         traces: list[FedRADRoundTrace] = []
+        functional_round_diagnostics: list[dict[str, object]] = []
         self.logger.log_config(
             {
                 **self.config.as_serializable_dict(),
@@ -506,13 +575,23 @@ class FedRADTrainer:
 
             _synchronize(self.device)
             probe_start = time.perf_counter()
-            batches, probe_results = self._run_probe_grid(
-                global_state=global_state,
-                bank=bank,
-                selected_clients=selected_clients,
-                round_idx=round_idx,
-                replicate=0,
+            batches: list[ProbeBatch] = []
+            probe_result_sets: list[list[ProbeResult]] = []
+            replicate_count = (
+                self.config.functional_probe_replicates
+                if self.config.score_mode == "functional"
+                else 1
             )
+            for replicate in range(replicate_count):
+                replicate_batches, replicate_results = self._run_probe_grid(
+                    global_state=global_state,
+                    bank=bank,
+                    selected_clients=selected_clients,
+                    round_idx=round_idx,
+                    replicate=replicate,
+                )
+                batches.extend(replicate_batches)
+                probe_result_sets.append(replicate_results)
             _synchronize(self.device)
             probe_seconds = time.perf_counter() - probe_start
             if state_dict_hash(global_state) != global_hash_before_probe:
@@ -521,25 +600,36 @@ class FedRADTrainer:
                 task.verify_hash()
                 if task.state_hash != expected_hash:
                     raise RuntimeError("FedRAD probe mutated a TaskSpec")
-            self.logger.log_probe_results(probe_results)
+            for replicate_results in probe_result_sets:
+                self.logger.log_probe_results(replicate_results)
 
             matching_start = time.perf_counter()
-            scores = build_score_matrices(
-                selected_clients=selected_clients,
-                task_ids=tuple(task.task_id for task in bank.tasks),
-                results=probe_results,
-                config=self.config,
-            )
+            replicate_scores = [
+                build_score_matrices(
+                    selected_clients=selected_clients,
+                    task_ids=tuple(task.task_id for task in bank.tasks),
+                    results=replicate_results,
+                    config=self.config,
+                )
+                for replicate_results in probe_result_sets
+            ]
             if self.config.score_mode == "functional":
-                scores = replace(scores, Q=scores.G)
+                scores = mean_score_matrices(replicate_scores, config=self.config)
                 # Formal Ours: Q is exactly the raw held-out functional recovery
-                # G = reset-query loss minus post-one-step-adaptation query loss.
+                # G, averaged elementwise over independent Probe replicates.
                 decision = assign_functional_recovery(
                     client_order=tuple(selected_clients),
                     task_order=tuple(task.task_id for task in bank.tasks),
                     Q=scores.G,
                 )
+                round_functional_diagnostics = _functional_replicate_diagnostics(
+                    replicate_scores,
+                    decision=decision,
+                    z_eps=self.config.z_eps,
+                )
+                functional_round_diagnostics.append(round_functional_diagnostics)
             else:
+                scores = replicate_scores[0]
                 decision = assign_with_gate(
                     scores,
                     gate_tau=self.config.gate_tau,
@@ -547,12 +637,14 @@ class FedRADTrainer:
                         self.config.development_force_hungarian
                     ),
                 )
+                round_functional_diagnostics = {}
             matching_seconds = time.perf_counter() - matching_start
             self.logger.log_scores(round_idx, scores)
             self.logger.log_assignment(round_idx, decision)
 
             reliability_probe_seconds = 0.0
             if round_idx + 1 in self.config.diagnostic_probe_rounds:
+                probe_results = probe_result_sets[0]
                 self.logger.log_probe_reliability_results(0, probe_results)
                 self.logger.log_reliability_scores(round_idx, 0, scores)
                 self.logger.log_reliability_assignment(round_idx, 0, decision)
@@ -574,14 +666,14 @@ class FedRADTrainer:
                         task.verify_hash()
                         if task.state_hash != expected_hash:
                             raise RuntimeError("Reliability probe mutated a TaskSpec")
-                    replicate_scores = build_score_matrices(
+                    reliability_scores = build_score_matrices(
                         selected_clients=selected_clients,
                         task_ids=tuple(task.task_id for task in bank.tasks),
                         results=replicate_results,
                         config=self.config,
                     )
                     replicate_decision = assign_with_gate(
-                        replicate_scores,
+                        reliability_scores,
                         gate_tau=self.config.gate_tau,
                         development_force_hungarian=False,
                     )
@@ -589,7 +681,7 @@ class FedRADTrainer:
                         replicate, replicate_results
                     )
                     self.logger.log_reliability_scores(
-                        round_idx, replicate, replicate_scores
+                        round_idx, replicate, reliability_scores
                     )
                     self.logger.log_reliability_assignment(
                         round_idx, replicate, replicate_decision
@@ -704,6 +796,7 @@ class FedRADTrainer:
                 peak_gpu_memory_bytes=peak_gpu_memory_bytes,
                 matching_active=True,
                 score_mode=self.config.score_mode,
+                **round_functional_diagnostics,
                 **_task_damage_diagnostics(bank),
             )
             accuracy_text = (
@@ -747,6 +840,81 @@ class FedRADTrainer:
                 ),
                 "matching_start_round": self.config.matching_start_round,
                 "score_mode": self.config.score_mode,
+                "functional_probe_replicates": (
+                    self.config.functional_probe_replicates
+                ),
+                "mean_score_variance_across_replicates": (
+                    float(
+                        np.mean(
+                            [
+                                row["mean_score_variance_across_replicates"]
+                                for row in functional_round_diagnostics
+                            ]
+                        )
+                    )
+                    if functional_round_diagnostics
+                    else None
+                ),
+                "mean_pairwise_score_std": (
+                    float(
+                        np.mean(
+                            [
+                                row["mean_pairwise_score_std"]
+                                for row in functional_round_diagnostics
+                            ]
+                        )
+                    )
+                    if functional_round_diagnostics
+                    else None
+                ),
+                "mean_pairwise_score_standard_error": (
+                    float(
+                        np.mean(
+                            [
+                                row["mean_pairwise_score_standard_error"]
+                                for row in functional_round_diagnostics
+                            ]
+                        )
+                    )
+                    if functional_round_diagnostics
+                    else None
+                ),
+                "mean_replicate_assignment_overlap": (
+                    float(
+                        np.mean(
+                            [
+                                row["mean_replicate_assignment_overlap"]
+                                for row in functional_round_diagnostics
+                            ]
+                        )
+                    )
+                    if functional_round_diagnostics
+                    else None
+                ),
+                "mean_assignment_change_rate": (
+                    float(
+                        np.mean(
+                            [
+                                row["assignment_change_rate"]
+                                for row in functional_round_diagnostics
+                            ]
+                        )
+                    )
+                    if functional_round_diagnostics
+                    else None
+                ),
+                "mean_assignment_margin": (
+                    float(
+                        np.mean(
+                            [
+                                row["assignment_margin"]
+                                for row in functional_round_diagnostics
+                            ]
+                        )
+                    )
+                    if functional_round_diagnostics
+                    else None
+                ),
                 "warmup_rounds_asserted": self.config.matching_start_round - 1,
                 "scoring_weights_notice": self.config.scoring_weights_status,
                 "gate_tau_notice": self.config.gate_tau_status,
