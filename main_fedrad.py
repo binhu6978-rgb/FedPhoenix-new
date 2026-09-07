@@ -71,6 +71,12 @@ def parse_args() -> argparse.Namespace:
         help="override development query size; historical value is 32",
     )
     parser.add_argument(
+        "--probe-steps",
+        type=int,
+        default=None,
+        help="number of SGD adaptation steps on each fixed Probe support batch",
+    )
+    parser.add_argument(
         "--functional-probe-replicates",
         type=int,
         default=1,
@@ -205,6 +211,9 @@ def main() -> int:
             defaults.probe_query_size
             if cli.probe_query_size is None
             else cli.probe_query_size
+        ),
+        probe_steps=(
+            defaults.probe_steps if cli.probe_steps is None else cli.probe_steps
         ),
     )
     config.validate()

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 import random
 import unittest
 
@@ -130,6 +131,31 @@ class Phase2ProbeTests(unittest.TestCase):
         self.assertEqual({result.support_hash for result in results}, {self.batch.support_hash})
         self.assertEqual({result.query_hash for result in results}, {self.batch.query_hash})
         self.assertEqual({result.probe_seed for result in results}, {self.batch.probe_seed})
+
+    def test_probe_depth_only_repeats_adaptation_on_the_fixed_batch(self):
+        task = self.bank.task(0)
+        global_loss = self.runner.global_reference(
+            global_state=self.global_state, batch=self.batch
+        )
+        task_hash = task.state_hash
+        support_before = self.batch.support_images.clone()
+        query_before = self.batch.query_images.clone()
+        one_step = self.runner.run_pair(
+            task=task, batch=self.batch, global_loss=global_loss
+        )
+        deeper = ProbeRunner(
+            config=replace(self.config, probe_steps=3),
+            model_template=self.model,
+            device=torch.device("cpu"),
+        ).run_pair(task=task, batch=self.batch, global_loss=global_loss)
+
+        self.assertEqual(one_step.support_hash, deeper.support_hash)
+        self.assertEqual(one_step.query_hash, deeper.query_hash)
+        self.assertEqual(one_step.reset_loss, deeper.reset_loss)
+        self.assertNotEqual(one_step.adapted_loss, deeper.adapted_loss)
+        self.assertEqual(task.state_hash, task_hash)
+        torch.testing.assert_close(self.batch.support_images, support_before)
+        torch.testing.assert_close(self.batch.query_images, query_before)
 
     def test_probe_support_query_disjoint(self):
         self.assertFalse(set(self.batch.support_indices) & set(self.batch.query_indices))

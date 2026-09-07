@@ -1,0 +1,216 @@
+{
+  "experiment": "M2 Functional Recovery Probe Horizon",
+  "setting": "CIFAR-10 ResNet18 beta=0.3 seed=1 200 rounds faithful FedPhoenix reset_ratio=2/64",
+  "references": {
+    "clean": {
+      "M": null,
+      "peak": 73.7,
+      "peak_round": 175,
+      "final": 72.29,
+      "last20": 67.316,
+      "last50": 66.701
+    },
+    "m2": {
+      "M": 2,
+      "peak": 74.34,
+      "peak_round": 164,
+      "delta_clean_pp": 0.64,
+      "delta_m1_pp": 0.33,
+      "final": 72.66,
+      "last20": 68.939,
+      "last50": 67.7072,
+      "mean_score_variance": 0.01795195734770303,
+      "mean_pairwise_score_std": 0.10236503999303097,
+      "mean_pairwise_score_standard_error": 0.07238301393550431,
+      "mean_replicate_assignment_overlap": 0.6555,
+      "mean_assignment_change_rate": 0.9025,
+      "mean_assignment_margin": 0.016371931498870253,
+      "mean_assignment_overlap_with_m1": 0.269
+    },
+    "half_se": {
+      "peak": 74.42,
+      "peak_round": 164,
+      "final": 69.5,
+      "last20": 68.4595,
+      "last50": 67.7624,
+      "label": "half_se_lcb",
+      "run_directory": "results/reliability_aware_functional_recovery_2of64/functional_recovery_seed1_20260906_183441_337209_m2_half_se_lcb_seed1_2of64_200r",
+      "delta_clean_pp": 0.7199999999999989,
+      "delta_m2_pp": 0.0799999999999983,
+      "mean_score_variance": 0.01776251294351139,
+      "mean_pairwise_score_standard_error": 0.07191054937769101,
+      "mean_replicate_assignment_overlap": 0.6405,
+      "mean_assignment_change_rate": 0.9025,
+      "mean_assignment_margin": 0.014683433454483747,
+      "mean_reliability_penalty": 0.050848437103815376,
+      "mean_selected_reliability_penalty": 0.04877350433007814,
+      "assignment_overlap_with_m2": 0.3215,
+      "stage_deltas": [
+        {
+          "stage": "1-40",
+          "delta_clean_pp": -0.19899999999999957,
+          "delta_m2_pp": 0.08200000000000092
+        },
+        {
+          "stage": "41-80",
+          "delta_clean_pp": 0.37575000000000014,
+          "delta_m2_pp": -0.1902499999999999
+        },
+        {
+          "stage": "81-120",
+          "delta_clean_pp": -0.12200000000000007,
+          "delta_m2_pp": -0.4105000000000002
+        },
+        {
+          "stage": "121-160",
+          "delta_clean_pp": -0.20900000000000016,
+          "delta_m2_pp": -0.6635000000000003
+        },
+        {
+          "stage": "161-200",
+          "delta_clean_pp": 0.7607500000000013,
+          "delta_m2_pp": -0.08499999999999978
+        }
+      ]
+    }
+  },
+  "variants": [
+    {
+      "peak": 74.28,
+      "peak_round": 164,
+      "final": 71.82,
+      "last20": 68.781,
+      "last50": 67.7818,
+      "steps": 2,
+      "run_directory": "results/probe_horizon_functional_recovery_2of64/functional_recovery_seed1_20260907_144726_427266_m2_steps2_seed1_2of64_200r",
+      "delta_clean_pp": 0.5799999999999983,
+      "delta_m2_pp": -0.060000000000002274,
+      "delta_record_pp": -0.14000000000000057,
+      "score_standard_error": 0.08964296763435567,
+      "replicate_assignment_overlap": 0.6442500000000001,
+      "assignment_change_rate": 0.9130000000000001,
+      "assignment_margin": 0.016750637025106697,
+      "assignment_overlap_with_m2": 0.3405,
+      "stage_deltas": [
+        {
+          "stage": "1-40",
+          "delta_clean_pp": -0.6140000000000004,
+          "delta_m2_pp": -0.3329999999999999
+        },
+        {
+          "stage": "41-80",
+          "delta_clean_pp": 0.28999999999999987,
+          "delta_m2_pp": -0.27600000000000013
+        },
+        {
+          "stage": "81-120",
+          "delta_clean_pp": -0.3527500000000005,
+          "delta_m2_pp": -0.6412500000000007
+        },
+        {
+          "stage": "121-160",
+          "delta_clean_pp": 0.24049999999999921,
+          "delta_m2_pp": -0.21400000000000094
+        },
+        {
+          "stage": "161-200",
+          "delta_clean_pp": 0.7814999999999988,
+          "delta_m2_pp": -0.06425000000000232
+        }
+      ]
+    },
+    {
+      "peak": 73.63,
+      "peak_round": 184,
+      "final": 70.63,
+      "last20": 66.521,
+      "last50": 66.6902,
+      "steps": 3,
+      "run_directory": "results/probe_horizon_functional_recovery_2of64/functional_recovery_seed1_20260907_144726_432266_m2_steps3_seed1_2of64_200r",
+      "delta_clean_pp": -0.07000000000000739,
+      "delta_m2_pp": -0.710000000000008,
+      "delta_record_pp": -0.7900000000000063,
+      "score_standard_error": 0.10168355795270419,
+      "replicate_assignment_overlap": 0.613,
+      "assignment_change_rate": 0.9065000000000001,
+      "assignment_margin": 0.01568192493694369,
+      "assignment_overlap_with_m2": 0.331,
+      "stage_deltas": [
+        {
+          "stage": "1-40",
+          "delta_clean_pp": -0.19400000000000026,
+          "delta_m2_pp": 0.08700000000000023
+        },
+        {
+          "stage": "41-80",
+          "delta_clean_pp": 0.1459999999999999,
+          "delta_m2_pp": -0.4200000000000001
+        },
+        {
+          "stage": "81-120",
+          "delta_clean_pp": 0.014000000000000234,
+          "delta_m2_pp": -0.2744999999999999
+        },
+        {
+          "stage": "121-160",
+          "delta_clean_pp": 0.42899999999999955,
+          "delta_m2_pp": -0.025500000000000612
+        },
+        {
+          "stage": "161-200",
+          "delta_clean_pp": -0.3662499999999989,
+          "delta_m2_pp": -1.212
+        }
+      ]
+    },
+    {
+      "peak": 74.7,
+      "peak_round": 164,
+      "final": 71.75,
+      "last20": 68.0565,
+      "last50": 67.4368,
+      "steps": 5,
+      "run_directory": "results/probe_horizon_functional_recovery_2of64/functional_recovery_seed1_20260907_144726_027266_m2_steps5_seed1_2of64_200r",
+      "delta_clean_pp": 1.0,
+      "delta_m2_pp": 0.35999999999999943,
+      "delta_record_pp": 0.28000000000000114,
+      "score_standard_error": 0.10876575398816364,
+      "replicate_assignment_overlap": 0.621,
+      "assignment_change_rate": 0.9065000000000001,
+      "assignment_margin": 0.0203299540275475,
+      "assignment_overlap_with_m2": 0.32,
+      "stage_deltas": [
+        {
+          "stage": "1-40",
+          "delta_clean_pp": -0.6492500000000007,
+          "delta_m2_pp": -0.36825000000000013
+        },
+        {
+          "stage": "41-80",
+          "delta_clean_pp": 0.17874999999999996,
+          "delta_m2_pp": -0.38725000000000004
+        },
+        {
+          "stage": "81-120",
+          "delta_clean_pp": -0.5272500000000002,
+          "delta_m2_pp": -0.8157500000000004
+        },
+        {
+          "stage": "121-160",
+          "delta_clean_pp": 0.6374999999999993,
+          "delta_m2_pp": 0.1829999999999991
+        },
+        {
+          "stage": "161-200",
+          "delta_clean_pp": 0.34850000000000064,
+          "delta_m2_pp": -0.49725000000000036
+        }
+      ]
+    }
+  ],
+  "best_variant": "M2 5-step",
+  "best_peak": 74.7,
+  "delta_m2_pp": 0.35999999999999943,
+  "delta_previous_record_pp": 0.28000000000000114,
+  "decision": "Retain 5-step as the seed-1 peak leader and stop the Probe-depth sweep."
+}
