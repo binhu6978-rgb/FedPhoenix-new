@@ -82,6 +82,17 @@ def parse_args() -> argparse.Namespace:
         default="mean",
         help="fixed reliability rule for Functional Recovery raw-G probes",
     )
+    parser.add_argument(
+        "--functional-assignment-mode",
+        choices=(
+            "hungarian",
+            "consensus_lock",
+            "union_restrict",
+            "bilateral_gain",
+        ),
+        default="hungarian",
+        help="assignment-level structural use of two Functional Recovery probes",
+    )
     parser.add_argument("--rounds", type=int, default=1200)
     parser.add_argument(
         "--reset-ratio",
@@ -184,6 +195,7 @@ def main() -> int:
         diagnostic_save_checkpoints=cli.diagnostic_save_checkpoints,
         functional_probe_replicates=cli.functional_probe_replicates,
         functional_reliability_mode=cli.functional_reliability_mode,
+        functional_assignment_mode=cli.functional_assignment_mode,
         probe_support_size=(
             defaults.probe_support_size
             if cli.probe_support_size is None

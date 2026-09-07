@@ -1,0 +1,219 @@
+{
+  "experiment": "Consensus-Aware M2 Assignment",
+  "setting": "CIFAR-10 ResNet18 beta=0.3 seed=1 200 rounds faithful FedPhoenix reset_ratio=2/64",
+  "references": {
+    "clean": {
+      "M": null,
+      "peak": 73.7,
+      "peak_round": 175,
+      "final": 72.29,
+      "last20": 67.316,
+      "last50": 66.701
+    },
+    "m2": {
+      "M": 2,
+      "peak": 74.34,
+      "peak_round": 164,
+      "delta_clean_pp": 0.64,
+      "delta_m1_pp": 0.33,
+      "final": 72.66,
+      "last20": 68.939,
+      "last50": 67.7072,
+      "mean_score_variance": 0.01795195734770303,
+      "mean_pairwise_score_std": 0.10236503999303097,
+      "mean_pairwise_score_standard_error": 0.07238301393550431,
+      "mean_replicate_assignment_overlap": 0.6555,
+      "mean_assignment_change_rate": 0.9025,
+      "mean_assignment_margin": 0.016371931498870253,
+      "mean_assignment_overlap_with_m1": 0.269
+    },
+    "half_se": {
+      "peak": 74.42,
+      "peak_round": 164,
+      "final": 69.5,
+      "last20": 68.4595,
+      "last50": 67.7624,
+      "label": "half_se_lcb",
+      "run_directory": "results/reliability_aware_functional_recovery_2of64/functional_recovery_seed1_20260906_183441_337209_m2_half_se_lcb_seed1_2of64_200r",
+      "delta_clean_pp": 0.7199999999999989,
+      "delta_m2_pp": 0.0799999999999983,
+      "mean_score_variance": 0.01776251294351139,
+      "mean_pairwise_score_standard_error": 0.07191054937769101,
+      "mean_replicate_assignment_overlap": 0.6405,
+      "mean_assignment_change_rate": 0.9025,
+      "mean_assignment_margin": 0.014683433454483747,
+      "mean_reliability_penalty": 0.050848437103815376,
+      "mean_selected_reliability_penalty": 0.04877350433007814,
+      "assignment_overlap_with_m2": 0.3215,
+      "stage_deltas": [
+        {
+          "stage": "1-40",
+          "delta_clean_pp": -0.19899999999999957,
+          "delta_m2_pp": 0.08200000000000092
+        },
+        {
+          "stage": "41-80",
+          "delta_clean_pp": 0.37575000000000014,
+          "delta_m2_pp": -0.1902499999999999
+        },
+        {
+          "stage": "81-120",
+          "delta_clean_pp": -0.12200000000000007,
+          "delta_m2_pp": -0.4105000000000002
+        },
+        {
+          "stage": "121-160",
+          "delta_clean_pp": -0.20900000000000016,
+          "delta_m2_pp": -0.6635000000000003
+        },
+        {
+          "stage": "161-200",
+          "delta_clean_pp": 0.7607500000000013,
+          "delta_m2_pp": -0.08499999999999978
+        }
+      ]
+    }
+  },
+  "variants": [
+    {
+      "peak": 74.1,
+      "peak_round": 164,
+      "final": 71.9,
+      "last20": 67.0525,
+      "last50": 66.8922,
+      "mode": "consensus_lock",
+      "run_directory": "results/consensus_assignment_functional_recovery_2of64/functional_recovery_seed1_20260907_110522_499977_m2_consensus_lock_seed1_2of64_200r",
+      "delta_clean_pp": 0.3999999999999915,
+      "delta_m2_pp": -0.2400000000000091,
+      "delta_best_pp": -0.3200000000000074,
+      "assignment_change_rate": 0.8985,
+      "consensus_pairs": 4.2,
+      "supported_both": 0.42,
+      "supported_either": 0.9245,
+      "bilateral_gain_rate": 0.7358035714285714,
+      "assignment_overlap_with_m2": 0.297,
+      "stage_deltas": [
+        {
+          "stage": "1-40",
+          "delta_clean_pp": -0.19374999999999995,
+          "delta_m2_pp": 0.08725000000000054
+        },
+        {
+          "stage": "41-80",
+          "delta_clean_pp": 0.5894999999999998,
+          "delta_m2_pp": 0.023499999999999764
+        },
+        {
+          "stage": "81-120",
+          "delta_clean_pp": -0.30449999999999966,
+          "delta_m2_pp": -0.5929999999999997
+        },
+        {
+          "stage": "121-160",
+          "delta_clean_pp": 0.39125000000000015,
+          "delta_m2_pp": -0.06325000000000003
+        },
+        {
+          "stage": "161-200",
+          "delta_clean_pp": -0.19124999999999925,
+          "delta_m2_pp": -1.0370000000000004
+        }
+      ]
+    },
+    {
+      "peak": 73.52,
+      "peak_round": 164,
+      "final": 70.38,
+      "last20": 66.027,
+      "last50": 66.5024,
+      "mode": "union_restrict",
+      "run_directory": "results/consensus_assignment_functional_recovery_2of64/functional_recovery_seed1_20260907_110522_436220_m2_union_restrict_seed1_2of64_200r",
+      "delta_clean_pp": -0.18000000000000682,
+      "delta_m2_pp": -0.8200000000000074,
+      "delta_best_pp": -0.9000000000000057,
+      "assignment_change_rate": 0.884,
+      "consensus_pairs": 4.47,
+      "supported_both": 0.447,
+      "supported_either": 0.985,
+      "bilateral_gain_rate": 0.7231924603174603,
+      "assignment_overlap_with_m2": 0.2865,
+      "stage_deltas": [
+        {
+          "stage": "1-40",
+          "delta_clean_pp": -0.38899999999999996,
+          "delta_m2_pp": -0.10799999999999947
+        },
+        {
+          "stage": "41-80",
+          "delta_clean_pp": 0.2955000000000002,
+          "delta_m2_pp": -0.27049999999999985
+        },
+        {
+          "stage": "81-120",
+          "delta_clean_pp": -0.5072499999999998,
+          "delta_m2_pp": -0.79575
+        },
+        {
+          "stage": "121-160",
+          "delta_clean_pp": 0.4554999999999998,
+          "delta_m2_pp": 0.0009999999999996234
+        },
+        {
+          "stage": "161-200",
+          "delta_clean_pp": -0.7669999999999995,
+          "delta_m2_pp": -1.6127500000000006
+        }
+      ]
+    },
+    {
+      "peak": 73.48,
+      "peak_round": 175,
+      "final": 71.11,
+      "last20": 68.1795,
+      "last50": 67.3424,
+      "mode": "bilateral_gain",
+      "run_directory": "results/consensus_assignment_functional_recovery_2of64/functional_recovery_seed1_20260907_110522_440738_m2_bilateral_gain_seed1_2of64_200r",
+      "delta_clean_pp": -0.21999999999999886,
+      "delta_m2_pp": -0.8599999999999994,
+      "delta_best_pp": -0.9399999999999977,
+      "assignment_change_rate": 0.5955,
+      "consensus_pairs": 4.13,
+      "supported_both": 0.217,
+      "supported_either": 0.521,
+      "bilateral_gain_rate": 1.0,
+      "assignment_overlap_with_m2": 0.215,
+      "stage_deltas": [
+        {
+          "stage": "1-40",
+          "delta_clean_pp": 0.19149999999999973,
+          "delta_m2_pp": 0.47250000000000025
+        },
+        {
+          "stage": "41-80",
+          "delta_clean_pp": 0.2144999999999996,
+          "delta_m2_pp": -0.3515000000000004
+        },
+        {
+          "stage": "81-120",
+          "delta_clean_pp": -0.18200000000000038,
+          "delta_m2_pp": -0.47050000000000053
+        },
+        {
+          "stage": "121-160",
+          "delta_clean_pp": 0.4347499999999986,
+          "delta_m2_pp": -0.01975000000000158
+        },
+        {
+          "stage": "161-200",
+          "delta_clean_pp": 0.2812500000000012,
+          "delta_m2_pp": -0.5644999999999998
+        }
+      ]
+    }
+  ],
+  "best_structural_variant": "consensus_lock",
+  "best_structural_peak": 74.1,
+  "beats_m2": false,
+  "beats_current_best": false,
+  "decision": "Stop consensus/partial assignment optimization and retain plain M2 as the clean primary method."
+}

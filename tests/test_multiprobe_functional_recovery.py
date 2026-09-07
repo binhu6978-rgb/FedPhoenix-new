@@ -8,6 +8,7 @@ import numpy as np
 import torch
 
 from fedrad.assignment import (
+    assign_consensus_functional_recovery,
     assign_functional_recovery,
     best_vs_second_assignment_margin,
 )
@@ -28,7 +29,12 @@ class _CaptureLogger(NullLogger):
 
 
 class MultiProbeFunctionalRecoveryTests(unittest.TestCase):
-    def _run(self, replicates: int, reliability_mode: str = "mean"):
+    def _run(
+        self,
+        replicates: int,
+        reliability_mode: str = "mean",
+        assignment_mode: str = "hungarian",
+    ):
         config = tiny_config(
             rounds=1,
             probe_support_size=3,
@@ -36,6 +42,7 @@ class MultiProbeFunctionalRecoveryTests(unittest.TestCase):
             score_mode="functional",
             functional_probe_replicates=replicates,
             functional_reliability_mode=reliability_mode,
+            functional_assignment_mode=assignment_mode,
             verify_task_replay=False,
         )
         logger = _CaptureLogger()
@@ -160,6 +167,63 @@ class MultiProbeFunctionalRecoveryTests(unittest.TestCase):
             tuple((pair.client_id, pair.task_id) for pair in decision.final_pairs),
         )
 
+    def test_consensus_assignment_modes_obey_their_structural_constraints(self):
+        first = np.asarray(
+            [[8.0, 7.0, 0.0], [0.0, 8.0, 7.0], [7.0, 0.0, 8.0]]
+        )
+        second = np.asarray(
+            [[8.0, 0.0, 7.0], [7.0, 8.0, 0.0], [0.0, 7.0, 8.0]]
+        )
+        mean_q = (first + second) / 2.0
+        individual = [
+            assign_functional_recovery(
+                client_order=(10, 11, 12), task_order=(0, 1, 2), Q=matrix
+            )
+            for matrix in (first, second)
+        ]
+        individual_maps = [
+            {pair.client_row: pair.task_id for pair in decision.final_pairs}
+            for decision in individual
+        ]
+        for mode in ("consensus_lock", "union_restrict", "bilateral_gain"):
+            decision = assign_consensus_functional_recovery(
+                client_order=(10, 11, 12),
+                task_order=(0, 1, 2),
+                mean_Q=mean_q,
+                replicate_Q=(first, second),
+                mode=mode,
+            )
+            final = {pair.client_row: pair.task_id for pair in decision.final_pairs}
+            self.assertEqual(len(set(final.values())), 3)
+            if mode == "consensus_lock":
+                for row in range(3):
+                    if individual_maps[0][row] == individual_maps[1][row]:
+                        self.assertEqual(final[row], individual_maps[0][row])
+            elif mode == "union_restrict":
+                for row, task in final.items():
+                    self.assertIn(task, {row, individual_maps[0][row], individual_maps[1][row]})
+            else:
+                for row, task in final.items():
+                    if task != row:
+                        self.assertGreater(first[row, task], first[row, row])
+                        self.assertGreater(second[row, task], second[row, row])
+
+    def test_trainer_dispatches_with_consensus_assignment(self):
+        config, trace, results = self._run(2, assignment_mode="union_restrict")
+        replicate_scores = self._replicate_scores(config, trace, results)
+        mean_scores = mean_score_matrices(replicate_scores, config=config)
+        expected = assign_consensus_functional_recovery(
+            client_order=mean_scores.client_order,
+            task_order=mean_scores.task_order,
+            mean_Q=mean_scores.Q,
+            replicate_Q=[score.G for score in replicate_scores],
+            mode="union_restrict",
+        )
+        self.assertEqual(
+            trace.assignments,
+            tuple((pair.client_id, pair.task_id) for pair in expected.final_pairs),
+        )
+
     @staticmethod
     def _synthetic_scores(config, values):
         results = []
@@ -220,6 +284,19 @@ class MultiProbeFunctionalRecoveryTests(unittest.TestCase):
                 tiny_config(score_mode="functional"),
                 functional_probe_replicates=3,
                 functional_reliability_mode="one_se_lcb",
+            ).validate()
+        with self.assertRaisesRegex(ValueError, "exactly two"):
+            replace(
+                tiny_config(score_mode="functional"),
+                functional_probe_replicates=3,
+                functional_assignment_mode="consensus_lock",
+            ).validate()
+        with self.assertRaisesRegex(ValueError, "M2 mean"):
+            replace(
+                tiny_config(score_mode="functional"),
+                functional_probe_replicates=2,
+                functional_reliability_mode="half_se_lcb",
+                functional_assignment_mode="union_restrict",
             ).validate()
 
     def test_best_vs_second_assignment_margin(self):

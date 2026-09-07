@@ -11,6 +11,7 @@ from torch import nn
 
 from fedrad.aggregation import weighted_fedavg
 from fedrad.assignment import (
+    assign_consensus_functional_recovery,
     assign_functional_recovery,
     assign_with_gate,
     best_vs_second_assignment_margin,
@@ -80,6 +81,32 @@ def _functional_replicate_diagnostics(
         baseline_by_client[pair.client_id] != pair.task_id
         for pair in decision.final_pairs
     )
+    replicate_edge_sets = [
+        {(pair.client_id, pair.task_id) for pair in item.final_pairs}
+        for item in replicate_assignments
+    ]
+    selected_edges = {
+        (pair.client_id, pair.task_id) for pair in decision.final_pairs
+    }
+    consensus_edges = replicate_edge_sets[0].intersection(
+        *replicate_edge_sets[1:]
+    )
+    union_edges = replicate_edge_sets[0].union(*replicate_edge_sets[1:])
+    reassigned_pairs = [
+        pair
+        for pair in decision.final_pairs
+        if baseline_by_client[pair.client_id] != pair.task_id
+    ]
+    bilateral_gain_count = sum(
+        all(
+            score.G[
+                pair.client_row, column_by_task[pair.task_id]
+            ]
+            > score.G[pair.client_row, pair.client_row]
+            for score in replicate_scores
+        )
+        for pair in reassigned_pairs
+    )
     return {
         "functional_probe_replicates": len(replicate_scores),
         "mean_score_variance_across_replicates": float(np.mean(variances)),
@@ -113,6 +140,18 @@ def _functional_replicate_diagnostics(
                     for pair in decision.final_pairs
                 ]
             )
+        ),
+        "replicate_consensus_pair_count": len(consensus_edges),
+        "final_pair_supported_by_both_rate": float(
+            len(selected_edges.intersection(consensus_edges)) / len(selected_edges)
+        ),
+        "final_pair_supported_by_either_rate": float(
+            len(selected_edges.intersection(union_edges)) / len(selected_edges)
+        ),
+        "reassigned_pair_bilateral_gain_rate": (
+            float(bilateral_gain_count / len(reassigned_pairs))
+            if reassigned_pairs
+            else 1.0
         ),
     }
 
@@ -634,11 +673,20 @@ class FedRADTrainer:
                 scores = mean_score_matrices(replicate_scores, config=self.config)
                 # Formal Ours uses the configured reliability-adjusted raw-G
                 # estimate. The default mean mode exactly preserves M2.
-                decision = assign_functional_recovery(
-                    client_order=tuple(selected_clients),
-                    task_order=tuple(task.task_id for task in bank.tasks),
-                    Q=scores.Q,
-                )
+                if self.config.functional_assignment_mode == "hungarian":
+                    decision = assign_functional_recovery(
+                        client_order=tuple(selected_clients),
+                        task_order=tuple(task.task_id for task in bank.tasks),
+                        Q=scores.Q,
+                    )
+                else:
+                    decision = assign_consensus_functional_recovery(
+                        client_order=tuple(selected_clients),
+                        task_order=tuple(task.task_id for task in bank.tasks),
+                        mean_Q=scores.Q,
+                        replicate_Q=[score.G for score in replicate_scores],
+                        mode=self.config.functional_assignment_mode,
+                    )
                 round_functional_diagnostics = _functional_replicate_diagnostics(
                     replicate_scores,
                     decision=decision,
@@ -864,6 +912,9 @@ class FedRADTrainer:
                 "functional_reliability_mode": (
                     self.config.functional_reliability_mode
                 ),
+                "functional_assignment_mode": (
+                    self.config.functional_assignment_mode
+                ),
                 "mean_score_variance_across_replicates": (
                     float(
                         np.mean(
@@ -953,6 +1004,54 @@ class FedRADTrainer:
                         np.mean(
                             [
                                 row["mean_selected_reliability_penalty"]
+                                for row in functional_round_diagnostics
+                            ]
+                        )
+                    )
+                    if functional_round_diagnostics
+                    else None
+                ),
+                "mean_replicate_consensus_pair_count": (
+                    float(
+                        np.mean(
+                            [
+                                row["replicate_consensus_pair_count"]
+                                for row in functional_round_diagnostics
+                            ]
+                        )
+                    )
+                    if functional_round_diagnostics
+                    else None
+                ),
+                "mean_final_pair_supported_by_both_rate": (
+                    float(
+                        np.mean(
+                            [
+                                row["final_pair_supported_by_both_rate"]
+                                for row in functional_round_diagnostics
+                            ]
+                        )
+                    )
+                    if functional_round_diagnostics
+                    else None
+                ),
+                "mean_final_pair_supported_by_either_rate": (
+                    float(
+                        np.mean(
+                            [
+                                row["final_pair_supported_by_either_rate"]
+                                for row in functional_round_diagnostics
+                            ]
+                        )
+                    )
+                    if functional_round_diagnostics
+                    else None
+                ),
+                "mean_reassigned_pair_bilateral_gain_rate": (
+                    float(
+                        np.mean(
+                            [
+                                row["reassigned_pair_bilateral_gain_rate"]
                                 for row in functional_round_diagnostics
                             ]
                         )

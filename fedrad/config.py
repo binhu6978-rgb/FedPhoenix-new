@@ -59,6 +59,9 @@ class FedRADConfig:
     # exactly preserves Multi-Probe M2. The LCB variants are fixed,
     # interpretable candidates rather than a free lambda sweep.
     functional_reliability_mode: str = "mean"
+    # Assignment-level use of the two independent Functional Recovery probes.
+    # ``hungarian`` exactly preserves the accepted M2/LCB paths.
+    functional_assignment_mode: str = "hungarian"
 
     # Development scoring defaults, not final calibrated values.
     lambda_G: float = 1.0
@@ -143,6 +146,16 @@ class FedRADConfig:
             raise ValueError(
                 "functional_reliability_mode must be mean, half_se_lcb, or one_se_lcb"
             )
+        if self.functional_assignment_mode not in {
+            "hungarian",
+            "consensus_lock",
+            "union_restrict",
+            "bilateral_gain",
+        }:
+            raise ValueError(
+                "functional_assignment_mode must be hungarian, consensus_lock, "
+                "union_restrict, or bilateral_gain"
+            )
         if not math.isclose(
             self.probe_learning_rate,
             self.learning_rate,
@@ -174,6 +187,19 @@ class FedRADConfig:
             if self.functional_probe_replicates != 2:
                 raise ValueError(
                     "functional reliability variants require exactly two probes"
+                )
+        if self.functional_assignment_mode != "hungarian":
+            if self.score_mode != "functional":
+                raise ValueError(
+                    "functional structural assignment requires score_mode=functional"
+                )
+            if self.functional_probe_replicates != 2:
+                raise ValueError(
+                    "functional structural assignment requires exactly two probes"
+                )
+            if self.functional_reliability_mode != "mean":
+                raise ValueError(
+                    "functional structural assignment requires the M2 mean score"
                 )
         if self.matching_start_round > 1:
             if self.warmup_reference_rounds_path is None:
