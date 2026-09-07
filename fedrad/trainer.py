@@ -40,6 +40,7 @@ def _functional_replicate_diagnostics(
     replicate_scores: Sequence[ScoreMatrices],
     *,
     decision: AssignmentDecision,
+    assignment_Q: np.ndarray,
     z_eps: float,
 ) -> dict[str, object]:
     raw = np.stack([score.G for score in replicate_scores], axis=0)
@@ -71,6 +72,10 @@ def _functional_replicate_diagnostics(
     baseline_by_client = {
         pair.client_id: pair.task_id for pair in decision.baseline_pairs
     }
+    column_by_task = {
+        task_id: column
+        for column, task_id in enumerate(replicate_scores[0].task_order)
+    }
     changed = sum(
         baseline_by_client[pair.client_id] != pair.task_id
         for pair in decision.final_pairs
@@ -96,7 +101,19 @@ def _functional_replicate_diagnostics(
         ],
         "assignment_change_rate": float(changed / len(final_edges)),
         "assignment_objective": float(decision.hungarian_score),
-        "assignment_margin": best_vs_second_assignment_margin(means),
+        "assignment_margin": best_vs_second_assignment_margin(assignment_Q),
+        "mean_reliability_penalty": float(np.mean(means - assignment_Q)),
+        "mean_selected_reliability_penalty": float(
+            np.mean(
+                [
+                    means[pair.client_row, column_by_task[pair.task_id]]
+                    - assignment_Q[
+                        pair.client_row, column_by_task[pair.task_id]
+                    ]
+                    for pair in decision.final_pairs
+                ]
+            )
+        ),
     }
 
 
@@ -615,16 +632,17 @@ class FedRADTrainer:
             ]
             if self.config.score_mode == "functional":
                 scores = mean_score_matrices(replicate_scores, config=self.config)
-                # Formal Ours: Q is exactly the raw held-out functional recovery
-                # G, averaged elementwise over independent Probe replicates.
+                # Formal Ours uses the configured reliability-adjusted raw-G
+                # estimate. The default mean mode exactly preserves M2.
                 decision = assign_functional_recovery(
                     client_order=tuple(selected_clients),
                     task_order=tuple(task.task_id for task in bank.tasks),
-                    Q=scores.G,
+                    Q=scores.Q,
                 )
                 round_functional_diagnostics = _functional_replicate_diagnostics(
                     replicate_scores,
                     decision=decision,
+                    assignment_Q=scores.Q,
                     z_eps=self.config.z_eps,
                 )
                 functional_round_diagnostics.append(round_functional_diagnostics)
@@ -843,6 +861,9 @@ class FedRADTrainer:
                 "functional_probe_replicates": (
                     self.config.functional_probe_replicates
                 ),
+                "functional_reliability_mode": (
+                    self.config.functional_reliability_mode
+                ),
                 "mean_score_variance_across_replicates": (
                     float(
                         np.mean(
@@ -908,6 +929,30 @@ class FedRADTrainer:
                         np.mean(
                             [
                                 row["assignment_margin"]
+                                for row in functional_round_diagnostics
+                            ]
+                        )
+                    )
+                    if functional_round_diagnostics
+                    else None
+                ),
+                "mean_reliability_penalty": (
+                    float(
+                        np.mean(
+                            [
+                                row["mean_reliability_penalty"]
+                                for row in functional_round_diagnostics
+                            ]
+                        )
+                    )
+                    if functional_round_diagnostics
+                    else None
+                ),
+                "mean_selected_reliability_penalty": (
+                    float(
+                        np.mean(
+                            [
+                                row["mean_selected_reliability_penalty"]
                                 for row in functional_round_diagnostics
                             ]
                         )

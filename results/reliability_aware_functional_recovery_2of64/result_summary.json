@@ -1,0 +1,137 @@
+{
+  "experiment": "Reliability-Aware M2 Functional Recovery",
+  "setting": "CIFAR-10 ResNet18 beta=0.3 seed=1 200 rounds faithful FedPhoenix reset_ratio=2/64",
+  "references": {
+    "clean": {
+      "M": null,
+      "peak": 73.7,
+      "peak_round": 175,
+      "final": 72.29,
+      "last20": 67.316,
+      "last50": 66.701
+    },
+    "full_ours": {
+      "M": 1,
+      "peak": 74.01,
+      "peak_round": 192,
+      "final": 70.94,
+      "last20": 68.36,
+      "last50": 67.6298
+    },
+    "m2": {
+      "M": 2,
+      "peak": 74.34,
+      "peak_round": 164,
+      "delta_clean_pp": 0.64,
+      "delta_m1_pp": 0.33,
+      "final": 72.66,
+      "last20": 68.939,
+      "last50": 67.7072,
+      "mean_score_variance": 0.01795195734770303,
+      "mean_pairwise_score_std": 0.10236503999303097,
+      "mean_pairwise_score_standard_error": 0.07238301393550431,
+      "mean_replicate_assignment_overlap": 0.6555,
+      "mean_assignment_change_rate": 0.9025,
+      "mean_assignment_margin": 0.016371931498870253,
+      "mean_assignment_overlap_with_m1": 0.269
+    }
+  },
+  "variants": [
+    {
+      "peak": 74.42,
+      "peak_round": 164,
+      "final": 69.5,
+      "last20": 68.4595,
+      "last50": 67.7624,
+      "label": "half_se_lcb",
+      "run_directory": "results/reliability_aware_functional_recovery_2of64/functional_recovery_seed1_20260906_183441_337209_m2_half_se_lcb_seed1_2of64_200r",
+      "delta_clean_pp": 0.7199999999999989,
+      "delta_m2_pp": 0.0799999999999983,
+      "mean_score_variance": 0.01776251294351139,
+      "mean_pairwise_score_standard_error": 0.07191054937769101,
+      "mean_replicate_assignment_overlap": 0.6405,
+      "mean_assignment_change_rate": 0.9025,
+      "mean_assignment_margin": 0.014683433454483747,
+      "mean_reliability_penalty": 0.050848437103815376,
+      "mean_selected_reliability_penalty": 0.04877350433007814,
+      "assignment_overlap_with_m2": 0.3215,
+      "stage_deltas": [
+        {
+          "stage": "1-40",
+          "delta_clean_pp": -0.19899999999999957,
+          "delta_m2_pp": 0.08200000000000092
+        },
+        {
+          "stage": "41-80",
+          "delta_clean_pp": 0.37575000000000014,
+          "delta_m2_pp": -0.1902499999999999
+        },
+        {
+          "stage": "81-120",
+          "delta_clean_pp": -0.12200000000000007,
+          "delta_m2_pp": -0.4105000000000002
+        },
+        {
+          "stage": "121-160",
+          "delta_clean_pp": -0.20900000000000016,
+          "delta_m2_pp": -0.6635000000000003
+        },
+        {
+          "stage": "161-200",
+          "delta_clean_pp": 0.7607500000000013,
+          "delta_m2_pp": -0.08499999999999978
+        }
+      ]
+    },
+    {
+      "peak": 73.88,
+      "peak_round": 175,
+      "final": 71.93,
+      "last20": 68.675,
+      "last50": 67.7458,
+      "label": "one_se_lcb",
+      "run_directory": "results/reliability_aware_functional_recovery_2of64/functional_recovery_seed1_20260906_232835_523355_m2_one_se_lcb_retry_seed1_2of64_200r",
+      "delta_clean_pp": 0.1799999999999926,
+      "delta_m2_pp": -0.46000000000000796,
+      "mean_score_variance": 0.017815449888262946,
+      "mean_pairwise_score_standard_error": 0.07183535147166438,
+      "mean_replicate_assignment_overlap": 0.60675,
+      "mean_assignment_change_rate": 0.8985,
+      "mean_assignment_margin": 0.01658374696969986,
+      "mean_reliability_penalty": 0.10159052830906586,
+      "mean_selected_reliability_penalty": 0.09227150633139536,
+      "assignment_overlap_with_m2": 0.2895,
+      "stage_deltas": [
+        {
+          "stage": "1-40",
+          "delta_clean_pp": -0.40724999999999967,
+          "delta_m2_pp": -0.12624999999999917
+        },
+        {
+          "stage": "41-80",
+          "delta_clean_pp": 0.4587499999999999,
+          "delta_m2_pp": -0.10725000000000015
+        },
+        {
+          "stage": "81-120",
+          "delta_clean_pp": -0.06549999999999993,
+          "delta_m2_pp": -0.3540000000000001
+        },
+        {
+          "stage": "121-160",
+          "delta_clean_pp": 0.46074999999999966,
+          "delta_m2_pp": 0.006249999999999467
+        },
+        {
+          "stage": "161-200",
+          "delta_clean_pp": 0.6855000000000008,
+          "delta_m2_pp": -0.16025000000000028
+        }
+      ]
+    }
+  ],
+  "best_variant": "M2 half-SE LCB",
+  "best_peak": 74.42,
+  "delta_m2_pp": 0.0799999999999983,
+  "decision": "Retain half-SE LCB as a marginal seed-1 peak improvement; stop reliability-penalty tuning."
+}

@@ -164,7 +164,23 @@ def mean_score_matrices(
         degenerate.append(flag)
 
     if config.score_mode == "functional":
+        raw_G = np.stack([matrix.G for matrix in matrices], axis=0)
         Q = components["G"].copy()
+        if config.functional_reliability_mode != "mean":
+            if len(matrices) != 2:
+                raise ValueError(
+                    "functional reliability variants require exactly two probes"
+                )
+            # For two independent observations, the sample standard error is
+            # |G1-G2|/2. Thus one_se_lcb is exactly min(G1, G2), while
+            # half_se_lcb is the deliberately milder confidence adjustment.
+            sample_standard_error = np.abs(raw_G[0] - raw_G[1]) / 2.0
+            strength = (
+                0.5
+                if config.functional_reliability_mode == "half_se_lcb"
+                else 1.0
+            )
+            Q -= strength * sample_standard_error
     elif config.score_mode == "g_only":
         Q = normalized["G"].copy()
     else:

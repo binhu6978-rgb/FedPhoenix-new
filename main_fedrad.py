@@ -76,6 +76,12 @@ def parse_args() -> argparse.Namespace:
         default=1,
         help="independent raw-G probes averaged before Functional Recovery assignment",
     )
+    parser.add_argument(
+        "--functional-reliability-mode",
+        choices=("mean", "half_se_lcb", "one_se_lcb"),
+        default="mean",
+        help="fixed reliability rule for Functional Recovery raw-G probes",
+    )
     parser.add_argument("--rounds", type=int, default=1200)
     parser.add_argument(
         "--reset-ratio",
@@ -177,6 +183,7 @@ def main() -> int:
         diagnostic_probe_replicates=cli.diagnostic_probe_replicates,
         diagnostic_save_checkpoints=cli.diagnostic_save_checkpoints,
         functional_probe_replicates=cli.functional_probe_replicates,
+        functional_reliability_mode=cli.functional_reliability_mode,
         probe_support_size=(
             defaults.probe_support_size
             if cli.probe_support_size is None
