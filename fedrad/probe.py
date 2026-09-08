@@ -112,6 +112,15 @@ def _query_loss(
     return value
 
 
+def _isolated_query_loss(model, images, labels, *, training, device):
+    """Query a private copy; preserve BN state, module modes and RNG exactly."""
+    devices = [device.index if device.index is not None else torch.cuda.current_device()] if device.type == "cuda" else []
+    with torch.random.fork_rng(devices=devices):
+        query_model = copy.deepcopy(model)
+        query_model.train(training)
+        return _query_loss(query_model, images, labels)
+
+
 def _side_effect_free_training_query_loss(
     model: nn.Module,
     images: torch.Tensor,
@@ -244,10 +253,17 @@ class ProbeRunner:
         with isolated_python_numpy_rng(batch.probe_seed), isolated_torch_rng(
             batch.probe_seed, self.device
         ):
-            # Query scoring is held out and side-effect-free.  Use eval mode for
-            # both values, while preserving the train-mode adaptation semantics.
+            # Keep the historical eval/train pair under legacy. New controls
+            # use a private query copy with the same mode before and after SGD.
             model.eval()
-            reset_loss = _query_loss(model, query_images, query_labels)
+            if self.config.probe_query_mode == "legacy":
+                reset_loss = _query_loss(model, query_images, query_labels)
+            else:
+                reset_loss = _isolated_query_loss(
+                    model, query_images, query_labels,
+                    training=self.config.probe_query_mode == "train_train",
+                    device=self.device,
+                )
             model.train()
             alignment = 0.0
             gradient_norm = 0.0
@@ -286,7 +302,14 @@ class ProbeRunner:
                         )
                     )
             if self.config.probe_recovery_measurement == "terminal":
-                adapted_loss = _query_loss(model, query_images, query_labels)
+                if self.config.probe_query_mode == "legacy":
+                    adapted_loss = _query_loss(model, query_images, query_labels)
+                else:
+                    adapted_loss = _isolated_query_loss(
+                        model, query_images, query_labels,
+                        training=self.config.probe_query_mode == "train_train",
+                        device=self.device,
+                    )
                 utility_loss = adapted_loss
             else:
                 adapted_loss = trajectory_losses[-1]

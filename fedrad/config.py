@@ -55,6 +55,7 @@ class FedRADConfig:
     # How the Functional Recovery utility summarizes losses observed along
     # the fixed-support adaptation path. ``terminal`` preserves M2 exactly.
     probe_recovery_measurement: str = "terminal"
+    probe_query_mode: str = "legacy"
     # Number of independent Functional Recovery estimates averaged before
     # Hungarian assignment.  One exactly preserves the accepted Ours path.
     functional_probe_replicates: int = 1
@@ -105,6 +106,8 @@ class FedRADConfig:
         )
         if self.probe_recovery_measurement != "terminal":
             protocol += f"_{self.probe_recovery_measurement}"
+        if self.probe_query_mode != "legacy":
+            protocol += f"_{self.probe_query_mode}"
         return protocol
 
     def validate(self) -> None:
@@ -142,6 +145,12 @@ class FedRADConfig:
             raise ValueError("probe support/query sizes must be positive")
         if self.probe_steps < 1 or self.probe_learning_rate <= 0:
             raise ValueError("probe steps and learning rate must be positive")
+        if self.probe_query_mode not in {"legacy", "eval_eval", "train_train"}:
+            raise ValueError("unknown probe_query_mode")
+        if self.probe_query_mode != "legacy" and (
+            self.probe_recovery_measurement != "terminal" or self.score_mode != "functional"
+        ):
+            raise ValueError("query-mode experiments require terminal Functional Recovery")
         if self.probe_recovery_measurement not in {
             "terminal",
             "trajectory_mean",
