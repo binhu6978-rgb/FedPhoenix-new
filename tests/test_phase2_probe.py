@@ -171,6 +171,42 @@ class Phase2ProbeTests(unittest.TestCase):
         for task in self.bank.tasks:
             task.verify_hash()
 
+    def test_recovery_trajectory_summaries_match_terminal_horizons(self):
+        task = self.bank.task(0)
+        batch = self.batch
+
+        def run(steps: int, measurement: str):
+            config = replace(
+                self.config,
+                probe_steps=steps,
+                probe_recovery_measurement=measurement,
+            )
+            runner = ProbeRunner(
+                config=config,
+                model_template=self.model,
+                device=torch.device("cpu"),
+            )
+            global_loss = runner.global_reference(
+                global_state=self.global_state, batch=batch
+            )
+            return runner.run_pair(task=task, batch=batch, global_loss=global_loss)
+
+        terminal = [run(step, "terminal") for step in range(1, 6)]
+        trajectory = run(5, "trajectory_mean")
+        endpoints = run(5, "endpoints_mean")
+        self.assertAlmostEqual(
+            trajectory.G,
+            float(np.mean([result.G for result in terminal])),
+            places=6,
+        )
+        self.assertAlmostEqual(
+            endpoints.G,
+            0.5 * (terminal[0].G + terminal[-1].G),
+            places=6,
+        )
+        self.assertAlmostEqual(trajectory.adapted_loss, terminal[-1].adapted_loss)
+        self.assertAlmostEqual(endpoints.adapted_loss, terminal[-1].adapted_loss)
+
     def test_probe_starts_from_original_task(self):
         results = self._run_all_tasks()
         self.assertEqual(

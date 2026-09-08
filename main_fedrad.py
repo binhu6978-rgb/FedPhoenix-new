@@ -77,6 +77,12 @@ def parse_args() -> argparse.Namespace:
         help="number of SGD adaptation steps on each fixed Probe support batch",
     )
     parser.add_argument(
+        "--probe-recovery-measurement",
+        choices=("terminal", "trajectory_mean", "endpoints_mean"),
+        default="terminal",
+        help="summarize Functional Recovery at the terminal step, across all steps, or at the two endpoints",
+    )
+    parser.add_argument(
         "--functional-probe-replicates",
         type=int,
         default=1,
@@ -215,6 +221,7 @@ def main() -> int:
         probe_steps=(
             defaults.probe_steps if cli.probe_steps is None else cli.probe_steps
         ),
+        probe_recovery_measurement=cli.probe_recovery_measurement,
     )
     config.validate()
     configure_determinism(config.seed)

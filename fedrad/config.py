@@ -52,6 +52,9 @@ class FedRADConfig:
     probe_query_size: int = 32
     probe_steps: int = 1
     probe_learning_rate: float = 0.01
+    # How the Functional Recovery utility summarizes losses observed along
+    # the fixed-support adaptation path. ``terminal`` preserves M2 exactly.
+    probe_recovery_measurement: str = "terminal"
     # Number of independent Functional Recovery estimates averaged before
     # Hungarian assignment.  One exactly preserves the accepted Ours path.
     functional_probe_replicates: int = 1
@@ -96,10 +99,13 @@ class FedRADConfig:
 
     @property
     def probe_protocol(self) -> str:
-        return (
+        protocol = (
             f"support{self.probe_support_size}_query{self.probe_query_size}"
             f"_steps{self.probe_steps}"
         )
+        if self.probe_recovery_measurement != "terminal":
+            protocol += f"_{self.probe_recovery_measurement}"
+        return protocol
 
     def validate(self) -> None:
         if self.dataset != "cifar10" or self.model != "resnet18":
@@ -136,6 +142,17 @@ class FedRADConfig:
             raise ValueError("probe support/query sizes must be positive")
         if self.probe_steps < 1 or self.probe_learning_rate <= 0:
             raise ValueError("probe steps and learning rate must be positive")
+        if self.probe_recovery_measurement not in {
+            "terminal",
+            "trajectory_mean",
+            "endpoints_mean",
+        }:
+            raise ValueError(
+                "probe_recovery_measurement must be terminal, trajectory_mean, "
+                "or endpoints_mean"
+            )
+        if self.probe_recovery_measurement != "terminal" and self.probe_steps < 2:
+            raise ValueError("trajectory recovery measurement requires probe_steps >= 2")
         if self.functional_probe_replicates < 1:
             raise ValueError("functional_probe_replicates must be positive")
         if self.functional_reliability_mode not in {

@@ -112,6 +112,25 @@ def _query_loss(
     return value
 
 
+def _side_effect_free_training_query_loss(
+    model: nn.Module,
+    images: torch.Tensor,
+    labels: torch.Tensor,
+    *,
+    seed: int,
+    device: torch.device,
+) -> float:
+    """Measure train-mode query loss without altering later adaptation steps."""
+    buffers = {name: value.detach().clone() for name, value in model.named_buffers()}
+    with isolated_torch_rng(seed, device):
+        value = _query_loss(model, images, labels)
+    current_buffers = dict(model.named_buffers())
+    with torch.no_grad():
+        for name, saved in buffers.items():
+            current_buffers[name].copy_(saved)
+    return value
+
+
 def _alignment_from_first_backward(
     model: nn.Module,
     task: TaskSpec,
@@ -234,6 +253,7 @@ class ProbeRunner:
             gradient_norm = 0.0
             delta_norm = float(task.delta_norm)
             alignment_valid = False
+            trajectory_losses: list[float] = []
             for step in range(self.config.probe_steps):
                 optimizer.zero_grad(set_to_none=True)
                 support_loss = F.cross_entropy(
@@ -255,9 +275,29 @@ class ProbeRunner:
                         device=self.device,
                     )
                 optimizer.step()
-            adapted_loss = _query_loss(model, query_images, query_labels)
+                if self.config.probe_recovery_measurement != "terminal":
+                    trajectory_losses.append(
+                        _side_effect_free_training_query_loss(
+                            model,
+                            query_images,
+                            query_labels,
+                            seed=batch.probe_seed + step + 1,
+                            device=self.device,
+                        )
+                    )
+            if self.config.probe_recovery_measurement == "terminal":
+                adapted_loss = _query_loss(model, query_images, query_labels)
+                utility_loss = adapted_loss
+            else:
+                adapted_loss = trajectory_losses[-1]
+                if self.config.probe_recovery_measurement == "trajectory_mean":
+                    utility_loss = float(np.mean(trajectory_losses))
+                else:
+                    utility_loss = 0.5 * (
+                        trajectory_losses[0] + trajectory_losses[-1]
+                    )
 
-        G = reset_loss - adapted_loss
+        G = reset_loss - utility_loss
         A = float(global_loss) - adapted_loss
         D = max(-A, 0.0)
         values = (global_loss, reset_loss, adapted_loss, G, A, D, alignment)

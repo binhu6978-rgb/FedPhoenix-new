@@ -1,0 +1,149 @@
+{
+  "experiment": "M2 recovery horizon and trajectory measurement",
+  "setting": "CIFAR-10 ResNet18 beta=0.3 seed=1 200 rounds faithful FedPhoenix reset_ratio=2/64",
+  "references": {
+    "clean": {
+      "M": null,
+      "peak": 73.7,
+      "peak_round": 175,
+      "final": 72.29,
+      "last20": 67.316,
+      "last50": 66.701
+    },
+    "m2_1step": {
+      "M": 2,
+      "peak": 74.34,
+      "peak_round": 164,
+      "delta_clean_pp": 0.64,
+      "delta_m1_pp": 0.33,
+      "final": 72.66,
+      "last20": 68.939,
+      "last50": 67.7072,
+      "mean_score_variance": 0.01795195734770303,
+      "mean_pairwise_score_std": 0.10236503999303097,
+      "mean_pairwise_score_standard_error": 0.07238301393550431,
+      "mean_replicate_assignment_overlap": 0.6555,
+      "mean_assignment_change_rate": 0.9025,
+      "mean_assignment_margin": 0.016371931498870253,
+      "mean_assignment_overlap_with_m1": 0.269
+    },
+    "m2_5step": {
+      "peak": 74.7,
+      "peak_round": 164,
+      "final": 71.75,
+      "last20": 68.0565,
+      "last50": 67.4368,
+      "steps": 5,
+      "run_directory": "results/probe_horizon_functional_recovery_2of64/functional_recovery_seed1_20260907_144726_027266_m2_steps5_seed1_2of64_200r",
+      "delta_clean_pp": 1.0,
+      "delta_m2_pp": 0.35999999999999943,
+      "delta_record_pp": 0.28000000000000114,
+      "score_standard_error": 0.10876575398816364,
+      "replicate_assignment_overlap": 0.621,
+      "assignment_change_rate": 0.9065000000000001,
+      "assignment_margin": 0.0203299540275475,
+      "assignment_overlap_with_m2": 0.32,
+      "stage_deltas": [
+        {
+          "stage": "1-40",
+          "delta_clean_pp": -0.6492500000000007,
+          "delta_m2_pp": -0.36825000000000013
+        },
+        {
+          "stage": "41-80",
+          "delta_clean_pp": 0.17874999999999996,
+          "delta_m2_pp": -0.38725000000000004
+        },
+        {
+          "stage": "81-120",
+          "delta_clean_pp": -0.5272500000000002,
+          "delta_m2_pp": -0.8157500000000004
+        },
+        {
+          "stage": "121-160",
+          "delta_clean_pp": 0.6374999999999993,
+          "delta_m2_pp": 0.1829999999999991
+        },
+        {
+          "stage": "161-200",
+          "delta_clean_pp": 0.34850000000000064,
+          "delta_m2_pp": -0.49725000000000036
+        }
+      ]
+    }
+  },
+  "variants": [
+    {
+      "peak": 74.29,
+      "peak_round": 192,
+      "final": 70.14,
+      "last20": 68.2355,
+      "last50": 67.2444,
+      "label": "6-step terminal",
+      "steps": 6,
+      "measurement": "terminal",
+      "run_directory": "results/recovery_measurement_functional_recovery_2of64/functional_recovery_seed1_20260907_225821_818700_m2_steps6_terminal_seed1_2of64_200r",
+      "delta_clean_pp": 0.5900000000000034,
+      "delta_m2_pp": -0.04999999999999716,
+      "delta_5step_pp": -0.4099999999999966,
+      "assignment_overlap_with_m2": 0.2625,
+      "score_standard_error": 0.11017827743534227,
+      "assignment_margin": 0.01563664369052276
+    },
+    {
+      "peak": 74.04,
+      "peak_round": 175,
+      "final": 70.11,
+      "last20": 68.702,
+      "last50": 67.4324,
+      "label": "8-step terminal",
+      "steps": 8,
+      "measurement": "terminal",
+      "run_directory": "results/recovery_measurement_functional_recovery_2of64/functional_recovery_seed1_20260907_225821_726706_m2_steps8_terminal_seed1_2of64_200r",
+      "delta_clean_pp": 0.3400000000000034,
+      "delta_m2_pp": -0.29999999999999716,
+      "delta_5step_pp": -0.6599999999999966,
+      "assignment_overlap_with_m2": 0.28350000000000003,
+      "score_standard_error": 0.11242622330115236,
+      "assignment_margin": 0.01828285266063176
+    },
+    {
+      "peak": 74.2,
+      "peak_round": 184,
+      "final": 71.28,
+      "last20": 68.6645,
+      "last50": 67.7338,
+      "label": "5-step trajectory mean",
+      "steps": 5,
+      "measurement": "trajectory_mean",
+      "run_directory": "results/recovery_measurement_functional_recovery_2of64/functional_recovery_seed1_20260908_022350_409913_m2_steps5_trajectory_mean_seed1_2of64_200r",
+      "delta_clean_pp": 0.5,
+      "delta_m2_pp": -0.14000000000000057,
+      "delta_5step_pp": -0.5,
+      "assignment_overlap_with_m2": 0.323,
+      "score_standard_error": 0.09310550588373376,
+      "assignment_margin": 0.01701698184502312
+    },
+    {
+      "peak": 74.44,
+      "peak_round": 164,
+      "final": 69.59,
+      "last20": 67.6575,
+      "last50": 67.6052,
+      "label": "5-step endpoints mean",
+      "steps": 5,
+      "measurement": "endpoints_mean",
+      "run_directory": "results/recovery_measurement_functional_recovery_2of64/functional_recovery_seed1_20260908_022758_725304_m2_steps5_endpoints_mean_seed1_2of64_200r",
+      "delta_clean_pp": 0.7399999999999949,
+      "delta_m2_pp": 0.09999999999999432,
+      "delta_5step_pp": -0.2600000000000051,
+      "assignment_overlap_with_m2": 0.3285,
+      "score_standard_error": 0.08588239042113027,
+      "assignment_margin": 0.015336511563509703
+    }
+  ],
+  "best_variant": "5-step endpoints mean",
+  "best_peak": 74.44,
+  "delta_5step_pp": -0.2600000000000051,
+  "decision": "No candidate exceeds 5-step terminal; stop horizon and trajectory optimization."
+}
