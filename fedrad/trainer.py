@@ -553,7 +553,20 @@ class FedRADTrainer:
                 support_limit=self.config.probe_support_size,
                 query_limit=self.config.probe_query_size,
                 probe_replicate=replicate,
+                support_coverage=self.config.probe_support_coverage,
             )
+            if self.config.probe_support_coverage != "fixed":
+                with (self.logger.run_dir / "support_coverage.jsonl").open("a", encoding="utf-8") as handle:
+                    handle.write(json.dumps({
+                        "round": round_idx + 1, "client_id": client_id,
+                        "replicate": replicate, "probe_seed": probe_seed,
+                        "query_indices": batch.query_indices, "query_hash": batch.query_hash,
+                        "support_batch_indices": batch.support_batch_indices,
+                        "support_batch_hashes": batch.support_batch_hashes,
+                        "support_hash": batch.support_hash,
+                        "step_batch_ids": batch.support_step_batch_ids,
+                        "unique_support_count": len(set(i for group in batch.support_batch_indices for i in group)),
+                    }) + "\n")
             batches.append(batch)
             global_loss = self.probe_runner.global_reference(
                 global_state=global_state, batch=batch

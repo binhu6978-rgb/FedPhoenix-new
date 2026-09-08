@@ -48,6 +48,7 @@ def materialize_probe_batch(
     support_limit: int,
     query_limit: int,
     probe_replicate: int = 0,
+    support_coverage: str = "fixed",
 ) -> ProbeBatch:
     indices = tuple(int(index) for index in client_indices)
     if len(indices) < 2:
@@ -60,9 +61,8 @@ def materialize_probe_batch(
         raise RuntimeError("Probe support/query split unexpectedly became empty")
 
     generator = np.random.default_rng(int(probe_seed))
-    chosen = generator.permutation(np.asarray(indices, dtype=np.int64))[
-        : support_size + query_size
-    ]
+    permutation = generator.permutation(np.asarray(indices, dtype=np.int64))
+    chosen = permutation[: support_size + query_size]
     support_indices = tuple(int(index) for index in chosen[:support_size])
     query_indices = tuple(int(index) for index in chosen[support_size:])
     if set(support_indices).intersection(query_indices):
@@ -83,6 +83,34 @@ def materialize_probe_batch(
 
     support_images, support_labels = materialize(support_indices)
     query_images, query_labels = materialize(query_indices)
+    if support_coverage not in {"fixed", "fresh", "refresh_once"}:
+        raise ValueError("unknown support coverage")
+    batch_indices = []
+    batch_images = []
+    batch_labels = []
+    batch_hashes = []
+    step_ids = ()
+    support_hash = _hash_materialized_batch(support_indices, support_images, support_labels)
+    if support_coverage != "fixed":
+        step_ids = (0, 1, 2, 3, 4) if support_coverage == "fresh" else (0, 0, 0, 1, 1)
+        # Preserve legacy batch 1 and query exactly. Traverse the remaining
+        # shuffled non-query pool first, cycling only after it is exhausted.
+        pool = tuple(int(i) for i in permutation[support_size + query_size:]) + support_indices
+        for batch_id in range(max(step_ids) + 1):
+            selected = support_indices if batch_id == 0 else tuple(
+                pool[((batch_id - 1) * support_size + offset) % len(pool)]
+                for offset in range(support_size)
+            )
+            if len(set(selected)) != support_size or set(selected).intersection(query_indices):
+                raise RuntimeError("Invalid multi-batch support/query split")
+            images, labels = (support_images, support_labels) if batch_id == 0 else materialize(selected)
+            batch_indices.append(selected)
+            batch_images.append(images)
+            batch_labels.append(labels)
+            batch_hashes.append(_hash_materialized_batch(selected, images, labels))
+        support_hash = hashlib.sha256(
+            repr((tuple(batch_hashes), step_ids)).encode("ascii")
+        ).hexdigest()
     return ProbeBatch(
         round_idx=int(round_idx),
         client_id=int(client_id),
@@ -92,12 +120,15 @@ def materialize_probe_batch(
         support_labels=support_labels,
         query_images=query_images,
         query_labels=query_labels,
-        support_hash=_hash_materialized_batch(
-            support_indices, support_images, support_labels
-        ),
+        support_hash=support_hash,
         query_hash=_hash_materialized_batch(query_indices, query_images, query_labels),
         probe_seed=int(probe_seed),
         probe_replicate=int(probe_replicate),
+        support_batch_indices=tuple(batch_indices),
+        support_batch_images=tuple(batch_images),
+        support_batch_labels=tuple(batch_labels),
+        support_batch_hashes=tuple(batch_hashes),
+        support_step_batch_ids=step_ids,
     )
 
 
@@ -271,6 +302,12 @@ class ProbeRunner:
             alignment_valid = False
             trajectory_losses: list[float] = []
             for step in range(self.config.probe_steps):
+                if self.config.probe_support_coverage != "fixed":
+                    if len(batch.support_step_batch_ids) != self.config.probe_steps:
+                        raise ValueError("Multi-batch Probe schedule is missing or has wrong length")
+                    batch_id = batch.support_step_batch_ids[step]
+                    support_images = batch.support_batch_images[batch_id].to(self.device, non_blocking=True)
+                    support_labels = batch.support_batch_labels[batch_id].to(self.device, non_blocking=True)
                 optimizer.zero_grad(set_to_none=True)
                 support_loss = F.cross_entropy(
                     extract_logits(model(support_images)), support_labels

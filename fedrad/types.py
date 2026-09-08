@@ -107,6 +107,11 @@ class ProbeBatch:
     query_hash: str
     probe_seed: int
     probe_replicate: int = 0
+    support_batch_indices: tuple[tuple[int, ...], ...] = ()
+    support_batch_images: tuple[torch.Tensor, ...] = field(default=(), repr=False)
+    support_batch_labels: tuple[torch.Tensor, ...] = field(default=(), repr=False)
+    support_batch_hashes: tuple[str, ...] = ()
+    support_step_batch_ids: tuple[int, ...] = ()
 
 
 @dataclass(frozen=True)

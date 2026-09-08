@@ -71,6 +71,10 @@ def parse_args() -> argparse.Namespace:
         help="override development query size; historical value is 32",
     )
     parser.add_argument(
+        "--probe-support-coverage", choices=("fixed", "fresh", "refresh_once"),
+        default="fixed",
+    )
+    parser.add_argument(
         "--probe-query-mode", choices=("legacy", "eval_eval", "train_train"),
         default="legacy",
     )
@@ -227,6 +231,7 @@ def main() -> int:
         ),
         probe_recovery_measurement=cli.probe_recovery_measurement,
         probe_query_mode=cli.probe_query_mode,
+        probe_support_coverage=cli.probe_support_coverage,
     )
     config.validate()
     configure_determinism(config.seed)

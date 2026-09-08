@@ -56,6 +56,7 @@ class FedRADConfig:
     # the fixed-support adaptation path. ``terminal`` preserves M2 exactly.
     probe_recovery_measurement: str = "terminal"
     probe_query_mode: str = "legacy"
+    probe_support_coverage: str = "fixed"
     # Number of independent Functional Recovery estimates averaged before
     # Hungarian assignment.  One exactly preserves the accepted Ours path.
     functional_probe_replicates: int = 1
@@ -108,6 +109,8 @@ class FedRADConfig:
             protocol += f"_{self.probe_recovery_measurement}"
         if self.probe_query_mode != "legacy":
             protocol += f"_{self.probe_query_mode}"
+        if self.probe_support_coverage != "fixed":
+            protocol += f"_{self.probe_support_coverage}"
         return protocol
 
     def validate(self) -> None:
@@ -145,6 +148,16 @@ class FedRADConfig:
             raise ValueError("probe support/query sizes must be positive")
         if self.probe_steps < 1 or self.probe_learning_rate <= 0:
             raise ValueError("probe steps and learning rate must be positive")
+        if self.probe_support_coverage not in {"fixed", "fresh", "refresh_once"}:
+            raise ValueError("unknown probe_support_coverage")
+        if self.probe_support_coverage != "fixed" and (
+            self.probe_steps != 5 or self.probe_query_mode != "legacy"
+            or self.probe_recovery_measurement != "terminal"
+            or self.score_mode != "functional" or self.functional_probe_replicates != 2
+            or self.functional_reliability_mode != "mean"
+            or self.functional_assignment_mode != "hungarian"
+        ):
+            raise ValueError("coverage controls require legacy M2 5-step terminal mean/Hungarian")
         if self.probe_query_mode not in {"legacy", "eval_eval", "train_train"}:
             raise ValueError("unknown probe_query_mode")
         if self.probe_query_mode != "legacy" and (

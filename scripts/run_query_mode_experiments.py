@@ -13,12 +13,16 @@ PROJECT = Path(__file__).resolve().parents[1]
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--smoke", action="store_true")
+    parser.add_argument("--support-coverage", action="store_true", help="run fresh and refresh_once with legacy queries")
     args = parser.parse_args()
     rounds = 1 if args.smoke else 200
-    root = PROJECT / "results" / ("query_mode_smoke" if args.smoke else "query_mode_functional_recovery_2of64") / datetime.now().strftime("%Y%m%d_%H%M%S")
+    experiment = "support_coverage" if args.support_coverage else "query_mode"
+    root = PROJECT / "results" / (f"{experiment}_smoke" if args.smoke else f"{experiment}_functional_recovery_2of64") / datetime.now().strftime("%Y%m%d_%H%M%S")
     root.mkdir(parents=True, exist_ok=False)
     children = []
-    for mode in ("eval_eval", "train_train"):
+    modes = ("fresh", "refresh_once") if args.support_coverage else ("eval_eval", "train_train")
+    option = "--probe-support-coverage" if args.support_coverage else "--probe-query-mode"
+    for mode in modes:
         output = root / mode
         output.mkdir()
         stdout = (output / "training.log").open("w", encoding="utf-8")
@@ -30,7 +34,7 @@ def main():
                    "--partition-path", str(PROJECT / "data/cifar10_100_noniidCase5_beta0.3.json"),
                    "--output-root", str(output), "--reset-ratio", "0.03125",
                    "--functional-probe-replicates", "2", "--probe-steps", "5",
-                   "--probe-query-mode", mode, "--run-name", f"m2_steps5_{mode}_seed1_{rounds}r"]
+                   option, mode, "--run-name", f"m2_steps5_{mode}_seed1_{rounds}r"]
         process = subprocess.Popen(command, cwd=PROJECT, stdout=stdout, stderr=stderr)
         children.append((mode, process, stdout, stderr, output))
         print(f"START {mode} pid={process.pid}", flush=True)
@@ -50,6 +54,22 @@ def main():
         if summary.get("status") != "complete" or len(rows) != rounds:
             raise RuntimeError(f"Incomplete run: {run}")
         values = [row["diagnostic_accuracy"] for row in rows]
+        if args.support_coverage:
+            references = list((PROJECT / "results/probe_horizon_functional_recovery_2of64").glob("*m2_steps5_seed1_2of64_200r/rounds.jsonl"))
+            if len(references) != 1:
+                raise RuntimeError("Expected one authoritative 5-step reference")
+            reference = [json.loads(line) for line in references[0].read_text().splitlines() if line]
+            for row, ref in zip(rows, reference[:rounds], strict=True):
+                for field in ("selected_clients", "task_seeds", "local_seeds"):
+                    if row[field] != ref[field]:
+                        raise RuntimeError(f"Fairness mismatch: {mode} {field}")
+            coverage = [json.loads(line) for line in (run / "support_coverage.jsonl").read_text().splitlines() if line]
+            if len(coverage) != rounds * 10 * 2:
+                raise RuntimeError("Incomplete support coverage audit")
+            for row in coverage:
+                if set(row["query_indices"]) & {i for batch in row["support_batch_indices"] for i in batch}:
+                    raise RuntimeError("Support/query overlap in coverage audit")
+            print(f"FAIRNESS_PASS {mode}; mean_unique_support={mean(row['unique_support_count'] for row in coverage):.3f}", flush=True)
         peak = max(values)
         results.append(dict(mode=mode, status="complete", rounds=len(rows), peak=peak,
                             peak_round=values.index(peak)+1, final=values[-1],
