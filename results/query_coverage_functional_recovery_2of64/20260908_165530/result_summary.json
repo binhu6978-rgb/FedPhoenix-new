@@ -1,0 +1,26 @@
+[
+  {
+    "mode": "2",
+    "status": "complete",
+    "rounds": 200,
+    "peak": 74.5,
+    "peak_round": 175,
+    "final": 71.32,
+    "last20": 67.8785,
+    "last50": 67.468,
+    "delta_vs_7470": -0.20000000000000284,
+    "run_directory": "C:\\Users\\admin\\Desktop\\need_do\\new_paper_four\\FedPhoenix-new\\results\\query_coverage_functional_recovery_2of64\\20260908_165530\\2\\functional_recovery_seed1_20260908_165535_291038_m2_steps5_2_seed1_200r"
+  },
+  {
+    "mode": "4",
+    "status": "complete",
+    "rounds": 200,
+    "peak": 74.48,
+    "peak_round": 192,
+    "final": 71.34,
+    "last20": 68.5945,
+    "last50": 67.5814,
+    "delta_vs_7470": -0.21999999999999886,
+    "run_directory": "C:\\Users\\admin\\Desktop\\need_do\\new_paper_four\\FedPhoenix-new\\results\\query_coverage_functional_recovery_2of64\\20260908_165530\\4\\functional_recovery_seed1_20260908_203042_549662_m2_steps5_4_seed1_200r"
+  }
+]

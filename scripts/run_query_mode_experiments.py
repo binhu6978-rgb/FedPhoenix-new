@@ -1,4 +1,4 @@
-"""Two simultaneous trainers; block on exits without polling training logs."""
+"""Serial trainers; block on exits without polling training logs."""
 import argparse
 import json
 import subprocess
@@ -14,14 +14,21 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--smoke", action="store_true")
     parser.add_argument("--support-coverage", action="store_true", help="run fresh and refresh_once with legacy queries")
+    parser.add_argument("--query-coverage", action="store_true")
     args = parser.parse_args()
+    if args.support_coverage and args.query_coverage:
+        parser.error("Choose only one coverage axis")
     rounds = 1 if args.smoke else 200
     experiment = "support_coverage" if args.support_coverage else "query_mode"
+    if args.query_coverage:
+        experiment = "query_coverage"
     root = PROJECT / "results" / (f"{experiment}_smoke" if args.smoke else f"{experiment}_functional_recovery_2of64") / datetime.now().strftime("%Y%m%d_%H%M%S")
     root.mkdir(parents=True, exist_ok=False)
     children = []
     modes = ("fresh", "refresh_once") if args.support_coverage else ("eval_eval", "train_train")
     option = "--probe-support-coverage" if args.support_coverage else "--probe-query-mode"
+    if args.query_coverage:
+        modes, option = ("2", "4"), "--probe-query-batches"
     for mode in modes:
         output = root / mode
         output.mkdir()
@@ -38,6 +45,14 @@ def main():
         process = subprocess.Popen(command, cwd=PROJECT, stdout=stdout, stderr=stderr)
         children.append((mode, process, stdout, stderr, output))
         print(f"START {mode} pid={process.pid}", flush=True)
+        # User preference: each full trajectory runs alone, from start to end.
+        # Wait before launching the next variant, without polling training logs.
+        code = process.wait()
+        stdout.close()
+        stderr.close()
+        print(f"SERIAL_EXIT {mode} exit={code}", flush=True)
+        if code:
+            raise SystemExit(code)
     results = []
     for mode, process, stdout, stderr, output in children:
         code = process.wait()
@@ -54,7 +69,7 @@ def main():
         if summary.get("status") != "complete" or len(rows) != rounds:
             raise RuntimeError(f"Incomplete run: {run}")
         values = [row["diagnostic_accuracy"] for row in rows]
-        if args.support_coverage:
+        if args.support_coverage or args.query_coverage:
             references = list((PROJECT / "results/probe_horizon_functional_recovery_2of64").glob("*m2_steps5_seed1_2of64_200r/rounds.jsonl"))
             if len(references) != 1:
                 raise RuntimeError("Expected one authoritative 5-step reference")
@@ -63,13 +78,17 @@ def main():
                 for field in ("selected_clients", "task_seeds", "local_seeds"):
                     if row[field] != ref[field]:
                         raise RuntimeError(f"Fairness mismatch: {mode} {field}")
-            coverage = [json.loads(line) for line in (run / "support_coverage.jsonl").read_text().splitlines() if line]
+            audit = "query_coverage.jsonl" if args.query_coverage else "support_coverage.jsonl"
+            coverage = [json.loads(line) for line in (run / audit).read_text().splitlines() if line]
             if len(coverage) != rounds * 10 * 2:
                 raise RuntimeError("Incomplete support coverage audit")
             for row in coverage:
-                if set(row["query_indices"]) & {i for batch in row["support_batch_indices"] for i in batch}:
+                fixed = "support_indices" if args.query_coverage else "query_indices"
+                groups = "query_batch_indices" if args.query_coverage else "support_batch_indices"
+                if set(row[fixed]) & {i for batch in row[groups] for i in batch}:
                     raise RuntimeError("Support/query overlap in coverage audit")
-            print(f"FAIRNESS_PASS {mode}; mean_unique_support={mean(row['unique_support_count'] for row in coverage):.3f}", flush=True)
+            count_key = "unique_query_count" if args.query_coverage else "unique_support_count"
+            print(f"FAIRNESS_PASS {mode}; {count_key}={mean(row[count_key] for row in coverage):.3f}", flush=True)
         peak = max(values)
         results.append(dict(mode=mode, status="complete", rounds=len(rows), peak=peak,
                             peak_round=values.index(peak)+1, final=values[-1],

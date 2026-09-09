@@ -49,6 +49,7 @@ def materialize_probe_batch(
     query_limit: int,
     probe_replicate: int = 0,
     support_coverage: str = "fixed",
+    query_batches: int = 1,
 ) -> ProbeBatch:
     indices = tuple(int(index) for index in client_indices)
     if len(indices) < 2:
@@ -111,6 +112,25 @@ def materialize_probe_batch(
         support_hash = hashlib.sha256(
             repr((tuple(batch_hashes), step_ids)).encode("ascii")
         ).hexdigest()
+    query_indices_list, query_images_list, query_labels_list, query_hashes = [], [], [], []
+    query_hash = _hash_materialized_batch(query_indices, query_images, query_labels)
+    if query_batches not in {1, 2, 4} or (query_batches > 1 and support_coverage != "fixed"):
+        raise ValueError("Invalid query coverage configuration")
+    if query_batches > 1:
+        pool = tuple(int(i) for i in permutation[support_size + query_size:]) + query_indices
+        for batch_id in range(query_batches):
+            selected = query_indices if batch_id == 0 else tuple(
+                pool[((batch_id - 1) * query_size + offset) % len(pool)]
+                for offset in range(query_size)
+            )
+            if set(selected) & set(support_indices) or len(set(selected)) != query_size:
+                raise RuntimeError("Invalid query batch")
+            images, labels = (query_images, query_labels) if batch_id == 0 else materialize(selected)
+            query_indices_list.append(selected)
+            query_images_list.append(images)
+            query_labels_list.append(labels)
+            query_hashes.append(_hash_materialized_batch(selected, images, labels))
+        query_hash = hashlib.sha256(repr(tuple(query_hashes)).encode("ascii")).hexdigest()
     return ProbeBatch(
         round_idx=int(round_idx),
         client_id=int(client_id),
@@ -121,7 +141,7 @@ def materialize_probe_batch(
         query_images=query_images,
         query_labels=query_labels,
         support_hash=support_hash,
-        query_hash=_hash_materialized_batch(query_indices, query_images, query_labels),
+        query_hash=query_hash,
         probe_seed=int(probe_seed),
         probe_replicate=int(probe_replicate),
         support_batch_indices=tuple(batch_indices),
@@ -129,6 +149,10 @@ def materialize_probe_batch(
         support_batch_labels=tuple(batch_labels),
         support_batch_hashes=tuple(batch_hashes),
         support_step_batch_ids=step_ids,
+        query_batch_indices=tuple(query_indices_list),
+        query_batch_images=tuple(query_images_list),
+        query_batch_labels=tuple(query_labels_list),
+        query_batch_hashes=tuple(query_hashes),
     )
 
 
@@ -150,6 +174,16 @@ def _isolated_query_loss(model, images, labels, *, training, device):
         query_model = copy.deepcopy(model)
         query_model.train(training)
         return _query_loss(query_model, images, labels)
+
+
+def _multi_query_loss(model, batch, *, training, device):
+    """Keep 32-example BN batches separate; each query starts from the same state."""
+    if not batch.query_batch_images:
+        raise ValueError("Missing multi-query batches")
+    return float(np.mean([
+        _isolated_query_loss(model, images.to(device), labels.to(device), training=training, device=device)
+        for images, labels in zip(batch.query_batch_images, batch.query_batch_labels, strict=True)
+    ]))
 
 
 def _side_effect_free_training_query_loss(
@@ -246,7 +280,8 @@ class ProbeRunner:
         with isolated_python_numpy_rng(batch.probe_seed), isolated_torch_rng(
             batch.probe_seed, self.device
         ):
-            loss = _query_loss(model, images, labels)
+            loss = (_multi_query_loss(model, batch, training=False, device=self.device)
+                    if self.config.probe_query_batches > 1 else _query_loss(model, images, labels))
         if state_dict_hash(state) != before:
             raise RuntimeError("Global reference evaluation mutated global state")
         del model, images, labels
@@ -287,7 +322,11 @@ class ProbeRunner:
             # Keep the historical eval/train pair under legacy. New controls
             # use a private query copy with the same mode before and after SGD.
             model.eval()
-            if self.config.probe_query_mode == "legacy":
+            if self.config.probe_query_batches > 1:
+                if len(batch.query_batch_images) != self.config.probe_query_batches:
+                    raise ValueError("Wrong number of query batches")
+                reset_loss = _multi_query_loss(model, batch, training=False, device=self.device)
+            elif self.config.probe_query_mode == "legacy":
                 reset_loss = _query_loss(model, query_images, query_labels)
             else:
                 reset_loss = _isolated_query_loss(
@@ -339,7 +378,9 @@ class ProbeRunner:
                         )
                     )
             if self.config.probe_recovery_measurement == "terminal":
-                if self.config.probe_query_mode == "legacy":
+                if self.config.probe_query_batches > 1:
+                    adapted_loss = _multi_query_loss(model, batch, training=True, device=self.device)
+                elif self.config.probe_query_mode == "legacy":
                     adapted_loss = _query_loss(model, query_images, query_labels)
                 else:
                     adapted_loss = _isolated_query_loss(

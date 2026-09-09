@@ -554,7 +554,17 @@ class FedRADTrainer:
                 query_limit=self.config.probe_query_size,
                 probe_replicate=replicate,
                 support_coverage=self.config.probe_support_coverage,
+                query_batches=self.config.probe_query_batches,
             )
+            if self.config.probe_query_batches > 1:
+                with (self.logger.run_dir / "query_coverage.jsonl").open("a", encoding="utf-8") as handle:
+                    handle.write(json.dumps({
+                        "round": round_idx + 1, "client_id": client_id, "replicate": replicate,
+                        "support_indices": batch.support_indices, "support_hash": batch.support_hash,
+                        "query_batch_indices": batch.query_batch_indices,
+                        "query_batch_hashes": batch.query_batch_hashes,
+                        "unique_query_count": len(set(i for group in batch.query_batch_indices for i in group)),
+                    }) + "\n")
             if self.config.probe_support_coverage != "fixed":
                 with (self.logger.run_dir / "support_coverage.jsonl").open("a", encoding="utf-8") as handle:
                     handle.write(json.dumps({
